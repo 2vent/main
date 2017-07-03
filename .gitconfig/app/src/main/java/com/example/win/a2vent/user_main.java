@@ -7,7 +7,6 @@ import android.widget.TabHost;
 import android.view.View;
 
 
-
 public class user_main extends AppCompatActivity {
 
     @Override
