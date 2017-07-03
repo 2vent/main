@@ -15,6 +15,8 @@ public class user_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main);
 
+    }
+
     public void onClick_login(View view) {
 
     }
