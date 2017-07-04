@@ -118,18 +118,6 @@ public class user_join extends AppCompatActivity {
                     "Please Wait", null, true, true);
         }
 
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            Intent intent_Gomain = new Intent(user_join.this, user_main.class);
-            startActivity(intent_Gomain);
-            Log.d("DB", "POST response  - " + result);
-        }
-
-
         @Override
         protected String doInBackground(String... params) {
 
@@ -193,6 +181,16 @@ public class user_join extends AppCompatActivity {
 
                 return new String("Error: " + e.getMessage());
             }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Intent intent_Gomain = new Intent(user_join.this, user_main.class);
+            startActivity(intent_Gomain);
+            Log.d("DB", "POST response  - " + result);
         }
 
     }
