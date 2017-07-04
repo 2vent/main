@@ -104,7 +104,7 @@ public class user_join extends AppCompatActivity {
         String accountnumber = et_joinAccnum.getText().toString();
 
         InsertData joinTask = new InsertData();
-        joinTask.execute(id,pw,name,addr,birth,phone,accountnumber,sex,user_type);
+        joinTask.execute(id,pw,name,addr,birth,sex,phone,user_type,accountnumber);
     }
 
     class InsertData extends AsyncTask<String, Void, String> {
