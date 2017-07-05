@@ -4,12 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by win on 2017-07-03.
+ * Created by win on 2017-07-05.
  */
 
-public class com_holder extends RecyclerView.ViewHolder{
+public class owner_event_holer extends RecyclerView.ViewHolder{
 
-    public com_holder(View itemView) {
+
+
+
+    public owner_event_holer(View itemView) {
         super(itemView);
     }
 }

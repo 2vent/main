@@ -4,7 +4,7 @@ package com.example.win.a2vent;
  * Created by win on 2017-07-03.
  */
 
-public class com_item {
+public class owner_com_item {
 
     String com_number=null;
     String com_name=null;
@@ -15,10 +15,10 @@ public class com_item {
     String id=null;
 
 
-    public com_item(String com_number,String com_name,String com_addr,String com_category,String com_manager,String com_URI,String id){
+    public owner_com_item(String com_number, String com_name, String com_addr, String com_category, String com_manager, String com_URI, String id){
         this.com_number=com_number;
         this.com_name=com_name;
-        this.com_addr=com_name;
+        this.com_addr=com_addr;
         this.com_category=com_category;
         this.com_manager=com_manager;
         this.com_URI=com_URI;
@@ -51,5 +51,33 @@ public class com_item {
 
     public String getId() {
         return id;
+    }
+
+    public void setCom_number(String com_number) {
+        this.com_number = com_number;
+    }
+
+    public void setCom_name(String com_name) {
+        this.com_name = com_name;
+    }
+
+    public void setCom_addr(String com_addr) {
+        this.com_addr = com_addr;
+    }
+
+    public void setCom_category(String com_category) {
+        this.com_category = com_category;
+    }
+
+    public void setCom_manager(String com_manager) {
+        this.com_manager = com_manager;
+    }
+
+    public void setCom_URI(String com_URI) {
+        this.com_URI = com_URI;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
