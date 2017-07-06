@@ -144,12 +144,12 @@ public class user_main extends AppCompatActivity {
 
             progressDialog.dismiss();
             if (result.equals("0")) {
-                Toast.makeText(user_main.this, "패스워드 일치하지 않음", Toast.LENGTH_SHORT).show();
+                Toast.makeText(user_main.this, "패스워드 불일치", Toast.LENGTH_SHORT).show();
             } else if (result.equals("1")){
-                Intent intent_Gologin = new Intent(user_main.this, user_join.class);
-                startActivity(intent_Gologin);
+                Intent intent_Logindone = new Intent(user_main.this, event_user_main.class);
+                startActivity(intent_Logindone);
             } else {
-                Toast.makeText(user_main.this, "부정확한 입력", Toast.LENGTH_SHORT).show();
+                Toast.makeText(user_main.this, "ID를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
             }
 
             Log.d("DB", "POST response  - " + result);

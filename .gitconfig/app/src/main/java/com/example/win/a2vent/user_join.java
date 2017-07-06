@@ -188,8 +188,8 @@ public class user_join extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            Intent intent_Gomain = new Intent(user_join.this, user_main.class);
-            startActivity(intent_Gomain);
+            Intent intent_Joindone = new Intent(user_join.this, user_main.class);
+            startActivity(intent_Joindone);
             Log.d("DB", "POST response  - " + result);
         }
 
