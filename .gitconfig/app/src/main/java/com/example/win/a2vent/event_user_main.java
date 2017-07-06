@@ -18,19 +18,28 @@ public class event_user_main extends AppCompatActivity {
 
         TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab Spec 1");
         tabSpec1.setContent(R.id.content1);
-        tabSpec1.setIndicator("TAB 1");
+        tabSpec1.setIndicator("패션");
         tabHost.addTab(tabSpec1);
 
         TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab Spec 2");
         tabSpec2.setContent(R.id.content2);
-        tabSpec2.setIndicator("TAB 2");
+        tabSpec2.setIndicator("외식");
         tabHost.addTab(tabSpec2);
 
         TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab Spec 3");
         tabSpec3.setContent(R.id.content3);
-        tabSpec3.setIndicator("TAB 3");
+        tabSpec3.setIndicator("기타");
         tabHost.addTab(tabSpec3);
 
+        TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("Tab Spec 4");
+        tabSpec4.setContent(R.id.content4);
+        tabSpec4.setIndicator("등등");
+        tabHost.addTab(tabSpec4);
+
+    }
+
+    public void onClick_Accountinfo(View v) {
+        Toast.makeText(event_user_main.this, "이거 누르면 계정정보로", Toast.LENGTH_SHORT).show();
     }
 
     public void onClick_goMap(View v) {
