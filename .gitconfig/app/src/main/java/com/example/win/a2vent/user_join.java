@@ -76,12 +76,12 @@ public class user_join extends AppCompatActivity {
                     case R.id.rBt_user0:
                         Toast.makeText(user_join.this,
                                 rBt_user0.getText().toString(), Toast.LENGTH_SHORT).show();
-                        user_type = "0";
+                        user_type = "1";
                         break;
                     case R.id.rBt_user1:
                         Toast.makeText(user_join.this,
                                 rBt_user1.getText().toString(), Toast.LENGTH_SHORT).show();
-                        user_type = "1";
+                        user_type = "2";
                         break;
                     case R.id.rBt_user2:
                         Toast.makeText(user_join.this,

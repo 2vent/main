@@ -27,6 +27,7 @@ public class user_main extends AppCompatActivity {
     String sId, sPw;
     private long backKeyPressedTime = 0;
     private Toast toast;
+    loginDB login_DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,9 @@ public class user_main extends AppCompatActivity {
             Log.e("err", e.getMessage());
         }
 
-        loginDB login_DB = new loginDB();
+        login_DB = new loginDB();
         login_DB.execute(sId, sPw);
 
-        //Toast.makeText(user_main.this, "DB가 없다구욧!", Toast.LENGTH_SHORT).show();
     }
 
     public void onClick_join(View view) {
@@ -143,13 +143,16 @@ public class user_main extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
+
             if (result.equals("0")) {
-                Toast.makeText(user_main.this, "패스워드 불일치", Toast.LENGTH_SHORT).show();
-            } else if (result.equals("1")){
-                Intent intent_Logindone = new Intent(user_main.this, event_user_main.class);
-                startActivity(intent_Logindone);
+                Toast.makeText(user_main.this, "Account Error", Toast.LENGTH_SHORT).show();
+            } else if (result.equals("1")) {
+                Intent intent_userLogin = new Intent(user_main.this, event_user_main.class);
+                startActivity(intent_userLogin);
+            } else if (result.equals("2")) {
+                Toast.makeText(user_main.this, "이거누르면 매니저 메인으로", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(user_main.this, "ID를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(user_main.this, "Account Error", Toast.LENGTH_SHORT).show();
             }
 
             Log.d("DB", "POST response  - " + result);
@@ -157,4 +160,19 @@ public class user_main extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        if (login_DB != null) {
+            login_DB.cancel(true);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if (login_DB != null) {
+            login_DB.cancel(true);
+        }
+        super.onPause();
+    }
 }
