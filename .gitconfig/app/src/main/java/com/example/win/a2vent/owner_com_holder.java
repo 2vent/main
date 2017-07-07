@@ -24,5 +24,6 @@ public class owner_com_holder extends RecyclerView.ViewHolder{
         com_manager=(TextView) itemView.findViewById(R.id.com_manager);
         com_addr=(TextView) itemView.findViewById(R.id.com_addr);
         com_category=(TextView)itemView.findViewById(R.id.com_category);
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.win.a2vent;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
@@ -14,22 +15,18 @@ import static android.content.ContentValues.TAG;
  */
 
 public class owner_com_adapter extends RecyclerView.Adapter<owner_com_holder>{
-    private Context context;
     private ArrayList<owner_com_item> mItems= new ArrayList<owner_com_item>();
 
 
-    public owner_com_adapter(ArrayList<owner_com_item> items, Context mContext){
+    public owner_com_adapter(ArrayList<owner_com_item> items){
         mItems=items;
-        context=mContext;
-
-
 
     }
 
 
     @Override
     public owner_com_holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v =View.inflate(context,R.layout.event_owner_com_item,null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_owner_com_item,parent,false);
         owner_com_holder holder= new owner_com_holder(v);
 
 

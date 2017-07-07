@@ -24,9 +24,11 @@ public class owner_event_item {
     String event_area=null;
     String com_number=null;
     String id=null;
+    String event_name=null;
+    String event_main_URI=null;
 
     owner_event_item(int event_number, int event_type, int event_stats, String event_URI, int event_price, int event_dis_price, int event_people, String event_startday, String event_endday, String event_starttime, String event_endtime, int event_payment,
-                     int event_target, int event_minage, int event_maxage, int event_sex, String event_area, String com_number, String id){
+                     int event_target, int event_minage, int event_maxage, int event_sex, String event_area, String com_number, String id,String event_name,String event_main_URI){
         this.event_number=event_number;
         this.event_type=event_type;
         this.event_stats=event_stats;
@@ -46,7 +48,11 @@ public class owner_event_item {
         this.event_area=event_area;
         this.com_number=com_number;
         this.id=id;
+        this.event_name=event_name;
+        this.event_main_URI=event_main_URI;
     }
+
+
 
     public int getEvent_number(){
         return event_number;
@@ -123,4 +129,12 @@ public class owner_event_item {
     public String getId() {
         return id;
     }
+
+    public String getEvent_name(){
+        return event_name;
+    }
+    public String getEvent_main_URI(){
+        return event_main_URI;
+    }
+
 }

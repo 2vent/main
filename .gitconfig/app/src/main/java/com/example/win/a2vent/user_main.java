@@ -49,13 +49,11 @@ public class user_main extends AppCompatActivity {
         items.add(new owner_com_item("4","모름","경북 구미시 우리집","10101","kjd99004","smt001","s"));
 
 
-//        layoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(layoutManager);
 
         layoutManager= new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
 
-        Adapter = new owner_com_adapter(items,mContext);
+        Adapter = new owner_com_adapter(items);
         recyclerView.setAdapter(Adapter);
         Toast.makeText(this,"여기까진 됨",Toast.LENGTH_LONG).show();
 
