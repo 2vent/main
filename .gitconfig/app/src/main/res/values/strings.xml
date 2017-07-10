@@ -1,5 +1,11 @@
 <resources>
+
+    
+
     <string name="app_name">  </string>
     <string name="navigation_drawer_open" />
     <string name="navigation_drawer_close" />
+    <string name="app_name">2vent</string>
+    <string name="str_done">완료</string>
+
 </resources>
