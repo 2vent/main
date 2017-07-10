@@ -13,6 +13,27 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView"
+                android:layout_alignBottom="@+id/textView"
+                android:layout_alignLeft="@+id/radioButton11"
+                android:layout_alignStart="@+id/radioButton11"
+                android:ems="10"
+                android:text="이벤트 !!" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView15"
+                android:layout_alignStart="@+id/textView15"
+                android:layout_below="@+id/textView15"
+                android:layout_marginTop="25dp"
+                android:text="이벤트 명 :" />
+
+            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,10 +119,10 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView15"
-                android:layout_alignStart="@+id/textView15"
-                android:layout_below="@+id/textView15"
-                android:layout_marginTop="53dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_below="@+id/textView"
+                android:layout_marginTop="21dp"
                 android:text="내용 :" />
 
             <TextView
