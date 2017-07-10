@@ -49,17 +49,6 @@ public class event_user_adapter extends RecyclerView.Adapter<event_user_holder> 
         return mItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView imageView;
-        public TextView textView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.cardview_image);
-            textView = (TextView) itemView.findViewById(R.id.cardview_text1);
-        }
-    }
 
     private void setAnimation(View viewToAnimate, int position) {
         if (position > lastPosition) {
