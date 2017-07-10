@@ -55,8 +55,8 @@
                         android:id="@+id/rview_content1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layoutManager="LinearLayoutManager"
-                        app:spanCount="1" />
+                        app:layoutManager="LinearLayoutManager" />
+
                 </LinearLayout>
 
                 <LinearLayout
