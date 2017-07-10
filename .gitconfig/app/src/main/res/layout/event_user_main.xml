@@ -51,13 +51,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rview_content1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#8BC34A"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="TAB CONTENT 1" />
+                        app:layoutManager="LinearLayoutManager"
+                        app:spanCount="1" />
                 </LinearLayout>
 
                 <LinearLayout

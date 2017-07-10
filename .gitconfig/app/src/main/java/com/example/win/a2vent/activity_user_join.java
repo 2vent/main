@@ -20,6 +20,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by EUNJAESHIN on 2017-07-10.
+ */
+
 public class activity_user_join extends AppCompatActivity {
 
     private EditText et_joinId, et_joinPw, et_joinName, et_joinAddr, et_joinBirth, et_joinPhone;

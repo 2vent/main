@@ -17,6 +17,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Created by EUNJAESHIN on 2017-07-10.
+ */
+
 public class activity_user_main extends AppCompatActivity {
 
     EditText et_id, et_pw;
