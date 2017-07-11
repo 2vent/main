@@ -12,10 +12,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="800dp">
+            android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editText12"
+                android:id="@+id/com_form_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/editText12"
+                android:layout_alignTop="@+id/com_form_name"
                 android:layout_marginLeft="19dp"
                 android:layout_marginStart="19dp"
                 android:text="업소명 :" />
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView7"
                 android:layout_alignStart="@+id/textView7"
-                android:layout_below="@+id/editText13"
+                android:layout_below="@+id/com_form_addr"
                 android:layout_marginTop="39dp"
                 android:text="카테고리" />
 
@@ -75,98 +75,98 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView9"
                 android:layout_alignStart="@+id/textView9"
-                android:layout_below="@+id/spinner"
+                android:layout_below="@+id/com_form_manager"
                 android:layout_marginTop="11dp"
                 android:text="사업자 등록번호 :" />
 
             <EditText
-                android:id="@+id/editText13"
+                android:id="@+id/com_form_addr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/editText12"
-                android:layout_alignStart="@+id/editText12"
+                android:layout_alignLeft="@+id/com_form_name"
+                android:layout_alignStart="@+id/com_form_name"
                 android:layout_alignTop="@+id/textView7"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name" />
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/com_form_radio_culture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/editText13"
-                android:layout_alignStart="@+id/editText13"
+                android:layout_alignLeft="@+id/com_form_addr"
+                android:layout_alignStart="@+id/com_form_addr"
                 android:layout_alignTop="@+id/textView8"
                 android:text="문화" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/com_form_radio_food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/radioButton"
-                android:layout_toEndOf="@+id/radioButton"
-                android:layout_toRightOf="@+id/radioButton"
+                android:layout_alignTop="@+id/com_form_radio_culture"
+                android:layout_toEndOf="@+id/com_form_radio_culture"
+                android:layout_toRightOf="@+id/com_form_radio_culture"
                 android:text="음식" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/com_form_radio_butty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/radioButton"
-                android:layout_alignStart="@+id/radioButton"
-                android:layout_below="@+id/radioButton"
+                android:layout_alignLeft="@+id/com_form_radio_culture"
+                android:layout_alignStart="@+id/com_form_radio_culture"
+                android:layout_below="@+id/com_form_radio_culture"
                 android:text="뷰티" />
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/com_form_radio_fashion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/radioButton2"
-                android:layout_toEndOf="@+id/radioButton3"
-                android:layout_toRightOf="@+id/radioButton3"
+                android:layout_below="@+id/com_form_radio_food"
+                android:layout_toEndOf="@+id/com_form_radio_butty"
+                android:layout_toRightOf="@+id/com_form_radio_butty"
                 android:text="패션" />
 
             <RadioButton
-                android:id="@+id/radioButton5"
+                android:id="@+id/com_form_radio_travel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/radioButton3"
-                android:layout_alignStart="@+id/radioButton3"
-                android:layout_below="@+id/radioButton3"
+                android:layout_alignLeft="@+id/com_form_radio_butty"
+                android:layout_alignStart="@+id/com_form_radio_butty"
+                android:layout_below="@+id/com_form_radio_butty"
                 android:text="여행" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/com_form_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/radioButton5"
-                android:layout_alignStart="@+id/radioButton5"
+                android:layout_alignLeft="@+id/com_form_radio_travel"
+                android:layout_alignStart="@+id/com_form_radio_travel"
                 android:layout_alignTop="@+id/textView9" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/com_form_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/ic_launcher"
-                android:layout_below="@+id/editText16"
+                android:layout_alignEnd="@+id/textView10"
                 android:layout_alignRight="@+id/textView10"
-                android:layout_alignEnd="@+id/textView10" />
+                android:layout_below="@+id/com_form_number"
+                app:srcCompat="@mipmap/ic_launcher" />
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/spinner"
-                android:layout_alignStart="@+id/spinner"
-                android:layout_alignTop="@+id/imageView2"
+                android:layout_alignLeft="@+id/com_form_manager"
+                android:layout_alignStart="@+id/com_form_manager"
+                android:layout_alignTop="@+id/com_form_iv"
                 android:text="사진 촬영" />
 
             <EditText
-                android:id="@+id/editText16"
+                android:id="@+id/com_form_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/spinner"
-                android:layout_alignStart="@+id/spinner"
+                android:layout_alignLeft="@+id/com_form_manager"
+                android:layout_alignStart="@+id/com_form_manager"
                 android:layout_alignTop="@+id/textView10"
                 android:ems="10"
                 android:inputType="textPersonName"
