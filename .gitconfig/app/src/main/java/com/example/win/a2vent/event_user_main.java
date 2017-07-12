@@ -104,6 +104,7 @@ public class event_user_main extends AppCompatActivity {
         tabSpec5.setIndicator("문화");
         tabHost.addTab(tabSpec5);
     }
+/*
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
@@ -220,4 +221,5 @@ public class event_user_main extends AppCompatActivity {
 
     }
 
+*/
 }
