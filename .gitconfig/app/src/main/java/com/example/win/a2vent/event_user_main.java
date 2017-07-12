@@ -68,7 +68,7 @@ public class event_user_main extends AppCompatActivity {
 
         TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab Spec 2");
         tabSpec2.setContent(R.id.content2);
-        tabSpec2.setIndicator("패션");
+        tabSpec2.setIndicator("문화");
         tabHost.addTab(tabSpec2);
 
         TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab Spec 3");
@@ -78,8 +78,13 @@ public class event_user_main extends AppCompatActivity {
 
         TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("Tab Spec 4");
         tabSpec4.setContent(R.id.content4);
-        tabSpec4.setIndicator("기타");
+        tabSpec4.setIndicator("패션");
         tabHost.addTab(tabSpec4);
+
+        TabHost.TabSpec tabSpec5 = tabHost.newTabSpec("Tab Spec 5");
+        tabSpec5.setContent(R.id.content5);
+        tabSpec5.setIndicator("뷰티");
+        tabHost.addTab(tabSpec5);
     }
 
 
