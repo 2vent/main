@@ -6,6 +6,7 @@ android {
     aaptOptions {
         cruncherEnabled = false
     }
+    dataBinding.enabled = true
     defaultConfig {
         applicationId "com.example.win.a2vent"
         minSdkVersion 15

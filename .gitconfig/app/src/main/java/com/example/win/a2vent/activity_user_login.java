@@ -2,13 +2,16 @@ package com.example.win.a2vent;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.win.a2vent.databinding.ActivityUserLoginBinding;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -21,30 +24,24 @@ import java.net.URL;
  * Created by EUNJAESHIN on 2017-07-10.
  */
 
-public class activity_user_main extends AppCompatActivity {
+public class activity_user_login extends AppCompatActivity {
 
-    EditText et_id, et_pw;
     String sId, sPw;
+    ActivityUserLoginBinding binding_userLogin;
     private long backKeyPressedTime = 0;
-    private Toast toast;
     loginDB login_DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_main);
+        binding_userLogin = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
 
-        toast = Toast.makeText(activity_user_main.this,
-                "'뒤로' 버튼을 한번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT);
-        et_id = (EditText) findViewById(R.id.eText_login_id);
-        et_pw = (EditText) findViewById(R.id.eText_login_pw);
     }
 
     public void onClick_login(View view) {
-
         try {
-            sId = et_id.getText().toString();
-            sPw = et_pw.getText().toString();
+            sId = binding_userLogin.eTextLoginId.getText().toString();
+            sPw = binding_userLogin.eTextLoginPw.getText().toString();
         } catch (NullPointerException e) {
             Log.e("err", e.getMessage());
         }
@@ -55,18 +52,20 @@ public class activity_user_main extends AppCompatActivity {
     }
 
     public void onClick_join(View view) {
-        Intent intent_join = new Intent(activity_user_main.this, activity_user_join.class);
+        Intent intent_join = new Intent(activity_user_login.this, activity_user_join.class);
         startActivity(intent_join);
     }
 
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
-            toast.show();
+            Toast.makeText(activity_user_login.this,
+                    "'뒤로' 버튼을 한번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).show();
             return;
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            toast.cancel();
+            Toast.makeText(activity_user_login.this,
+                    "'뒤로' 버튼을 한번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).cancel();
             finish();
         }
     }
@@ -78,7 +77,7 @@ public class activity_user_main extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(activity_user_main.this,
+            progressDialog = ProgressDialog.show(activity_user_login.this,
                     "Please Wait", null, true, true);
         }
 
@@ -145,14 +144,14 @@ public class activity_user_main extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result.equals("0")) {
-                Toast.makeText(activity_user_main.this, "Account Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_user_login.this, "Account Error", Toast.LENGTH_SHORT).show();
             } else if (result.equals("1")) {
-                Intent intent_userLogin = new Intent(activity_user_main.this, event_user_main.class);
+                Intent intent_userLogin = new Intent(activity_user_login.this, event_user_main.class);
                 startActivity(intent_userLogin);
             } else if (result.equals("2")) {
-                Toast.makeText(activity_user_main.this, "이거누르면 매니저 메인으로", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_user_login.this, "이거누르면 매니저 메인으로", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(activity_user_main.this, "Account Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_user_login.this, "Account Error", Toast.LENGTH_SHORT).show();
             }
 
             Log.d("DB", "POST response  - " + result);

@@ -189,7 +189,7 @@ public class activity_user_join extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result.equals("회원가입 성공!")) {
-                Intent intent_Joindone = new Intent(activity_user_join.this, activity_user_main.class);
+                Intent intent_Joindone = new Intent(activity_user_join.this, activity_user_login.class);
                 startActivity(intent_Joindone);
             } else if (result.equals("아이디가 존재합니다")) {
                 Toast.makeText(activity_user_join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
