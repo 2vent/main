@@ -30,7 +30,7 @@ public class activity_user_join extends AppCompatActivity {
     private EditText et_joinAccnum;
     private RadioButton rBt_sex0, rBt_sex1, rBt_user0, rBt_user1, rBt_user2;
     private RadioGroup radioGroup_sex, radioGroup_user;
-    String sex,user_type;
+    String sex, user_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class activity_user_join extends AppCompatActivity {
         String accountnumber = et_joinAccnum.getText().toString();
 
         InsertData joinTask = new InsertData();
-        joinTask.execute(id,pw,name,addr,birth,sex,phone,user_type,accountnumber);
+        joinTask.execute(id, pw, name, addr, birth, sex, phone, user_type, accountnumber);
     }
 
     class InsertData extends AsyncTask<String, Void, String> {
@@ -187,8 +187,13 @@ public class activity_user_join extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            Intent intent_Joindone = new Intent(activity_user_join.this, activity_user_main.class);
-            startActivity(intent_Joindone);
+
+            if (result.equals("회원가입 성공!")) {
+                Intent intent_Joindone = new Intent(activity_user_join.this, activity_user_main.class);
+                startActivity(intent_Joindone);
+            } else if (result.equals("아이디가 존재합니다")) {
+                Toast.makeText(activity_user_join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
+            }
             Log.d("DB", "POST response  - " + result);
         }
 
