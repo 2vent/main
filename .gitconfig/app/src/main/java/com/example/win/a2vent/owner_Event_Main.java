@@ -25,10 +25,11 @@ import java.util.ArrayList;
 
 public class owner_Event_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int nType=1;
     Context mContext;
     RecyclerView recyclerView;
     owner_Event_Adapter Adapter;
-
+    FloatingActionButton fab;
     owner_Addstore_Adapter Adapter_com;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<owner_Event_Item> event_list = new ArrayList<owner_Event_Item>();
@@ -41,15 +42,17 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.owner_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_eventform = new Intent(getBaseContext(), owner_Event_Addevent.class);
-                startActivity(intent_eventform);
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(nType == 1) {
+                    Intent intent_eventform = new Intent(getBaseContext(), owner_Event_Addevent.class);
+                    startActivity(intent_eventform);
+                } else {
+                    Intent intent_addstore = new Intent(getBaseContext(), owner_AddStore.class);
+                    startActivity(intent_addstore);
+                }
             }
         });
 
@@ -94,6 +97,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
         int id = item.getItemId();
 
         if (id == R.id.my_company) {
+            nType=0;
             ArrayList<owner_Addstore_Item> items = new ArrayList<owner_Addstore_Item>();
             items.add(new owner_Addstore_Item("1", "SKT", "경북 구미시 우리집", "10101", "kjd99002", "smt001", "s"));
             items.add(new owner_Addstore_Item("2", "LG", "경북 구미시 우리집", "10101", "kjd99001", "smt001", "s"));
@@ -107,6 +111,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             recyclerView.setAdapter(Adapter_com);
 
         } else if (id == R.id.on_event) {
+            nType=1;
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
@@ -123,6 +128,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             recyclerView.setAdapter(Adapter);
 
         } else if (id == R.id.temp_event) {
+            nType=1;
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
@@ -139,6 +145,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             recyclerView.setAdapter(Adapter);
 
         } else if (id == R.id.end_event) {
+            nType=1;
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
             event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
