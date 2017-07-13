@@ -25,7 +25,7 @@ import java.net.URL;
  * Created by EUNJAESHIN on 2017-07-10.
  */
 
-public class activity_User_Join2 extends AppCompatActivity {
+public class activity_User_Join extends AppCompatActivity {
 
     ActivityUserJoinBinding binding_userJoin;
     String sex, user_type, test;
@@ -89,7 +89,7 @@ public class activity_User_Join2 extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(activity_User_Join2.this,
+            progressDialog = ProgressDialog.show(activity_User_Join.this,
                     "Please Wait", null, true, true);
         }
 
@@ -165,10 +165,10 @@ public class activity_User_Join2 extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result.equals("회원가입 성공!")) {
-                Intent intent_Joindone = new Intent(activity_User_Join2.this, activity_User_Login2.class);
+                Intent intent_Joindone = new Intent(activity_User_Join.this, activity_User_Login.class);
                 startActivity(intent_Joindone);
             } else if (result.equals("아이디가 존재합니다")) {
-                Toast.makeText(activity_User_Join2.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_User_Join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
             }
             Log.d("DB", "POST response  - " + result);
         }
