@@ -18,6 +18,9 @@
         <activity android:name=".owner_test">
 
         </activity>
+        <activity android:name=".owner_event_form">
+
+        </activity>
         <activity android:name=".activity_user_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
