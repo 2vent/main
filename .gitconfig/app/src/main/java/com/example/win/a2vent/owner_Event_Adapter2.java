@@ -11,11 +11,13 @@ import java.util.ArrayList;
  * Created by win on 2017-07-05.
  */
 
-public class owner_Event_Adapter extends RecyclerView.Adapter<owner_Event_Holder> {
+public class owner_Event_Adapter2 extends RecyclerView.Adapter<owner_Event_Holder> {
 
-    private ArrayList<owner_Event_Item> event_list=new ArrayList<owner_Event_Item>();
+    String test;
 
-    public owner_Event_Adapter(ArrayList<owner_Event_Item> mevent_list){
+    private ArrayList<owner_Event_Item2> event_list=new ArrayList<owner_Event_Item2>();
+
+    public owner_Event_Adapter2(ArrayList<owner_Event_Item2> mevent_list){
         event_list=mevent_list;
     }
 

@@ -4,7 +4,8 @@ package com.example.win.a2vent;
  * Created by win on 2017-07-03.
  */
 
-public class owner_Event_Item {
+public class owner_Event_Item2 {
+    String test;
     int event_number=0;
     int event_type=0;
     int event_stats=0;
@@ -27,8 +28,8 @@ public class owner_Event_Item {
     String event_name=null;
     String event_main_URI=null;
 
-    owner_Event_Item(int event_number, int event_type, int event_stats, String event_URI, int event_price, int event_dis_price, int event_people, String event_startday, String event_endday, String event_starttime, String event_endtime, int event_payment,
-                     int event_target, int event_minage, int event_maxage, int event_sex, String event_area, String com_number, String id, String event_name, String event_main_URI){
+    owner_Event_Item2(int event_number, int event_type, int event_stats, String event_URI, int event_price, int event_dis_price, int event_people, String event_startday, String event_endday, String event_starttime, String event_endtime, int event_payment,
+                      int event_target, int event_minage, int event_maxage, int event_sex, String event_area, String com_number, String id, String event_name, String event_main_URI){
         this.event_number=event_number;
         this.event_type=event_type;
         this.event_stats=event_stats;

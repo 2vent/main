@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,11 +26,11 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
     private int nType=1;
     Context mContext;
     RecyclerView recyclerView;
-    owner_Event_Adapter Adapter;
+    owner_Event_Adapter2 Adapter;
     FloatingActionButton fab;
     owner_Addstore_Adapter Adapter_com;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<owner_Event_Item> event_list = new ArrayList<owner_Event_Item>();
+    ArrayList<owner_Event_Item2> event_list = new ArrayList<owner_Event_Item2>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +63,11 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
-        event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
-        event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
-        event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
-        event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
+        event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
+        event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
+        event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
+        event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
+        event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
 
         recyclerView = (RecyclerView) findViewById(R.id.event_owner_main);
         recyclerView.setHasFixedSize(true);
@@ -77,7 +75,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Adapter = new owner_Event_Adapter(event_list);
+        Adapter = new owner_Event_Adapter2(event_list);
         recyclerView.setAdapter(Adapter);
     }
 
@@ -112,11 +110,11 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
 
         } else if (id == R.id.on_event) {
             nType=1;
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
 
             recyclerView = (RecyclerView) findViewById(R.id.event_owner_main);
             recyclerView.setHasFixedSize(true);
@@ -124,16 +122,16 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
 
-            Adapter = new owner_Event_Adapter(event_list);
+            Adapter = new owner_Event_Adapter2(event_list);
             recyclerView.setAdapter(Adapter);
 
         } else if (id == R.id.temp_event) {
             nType=1;
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
 
             recyclerView = (RecyclerView) findViewById(R.id.event_owner_main);
             recyclerView.setHasFixedSize(true);
@@ -141,16 +139,16 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
 
-            Adapter = new owner_Event_Adapter(event_list);
+            Adapter = new owner_Event_Adapter2(event_list);
             recyclerView.setAdapter(Adapter);
 
         } else if (id == R.id.end_event) {
             nType=1;
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
-            event_list.add(new owner_Event_Item(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "문", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "동", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "이이이이이이", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "상", "ad"));
+            event_list.add(new owner_Event_Item2(1, 1, 1, "fiwj", 5000, 4000, 4, "20170707", "20170707", "5018", "5018", 0, 1, 59, 59, 1, "대구", "3", "던파", "사", "ad"));
 
             recyclerView = (RecyclerView) findViewById(R.id.event_owner_main);
             recyclerView.setHasFixedSize(true);
@@ -158,7 +156,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
             layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
 
-            Adapter = new owner_Event_Adapter(event_list);
+            Adapter = new owner_Event_Adapter2(event_list);
             recyclerView.setAdapter(Adapter);
 
         }
