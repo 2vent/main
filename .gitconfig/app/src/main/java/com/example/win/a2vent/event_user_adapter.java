@@ -46,7 +46,6 @@ public class event_user_adapter extends RecyclerView.Adapter<event_user_holder> 
         return mItems.size();
     }
 
-
     private void setAnimation(View viewToAnimate, int position) {
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context,

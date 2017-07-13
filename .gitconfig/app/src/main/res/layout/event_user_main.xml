@@ -102,6 +102,21 @@
                         android:text="TAB CONTENT 4" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/content5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#7c4dff"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="TAB CONTENT 5" />
+                </LinearLayout>
+
             </FrameLayout>
         </LinearLayout>
 
