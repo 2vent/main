@@ -149,7 +149,8 @@ public class activity_user_login extends AppCompatActivity {
                 Intent intent_userLogin = new Intent(activity_user_login.this, event_user_main.class);
                 startActivity(intent_userLogin);
             } else if (result.equals("2")) {
-                Toast.makeText(activity_user_login.this, "이거누르면 매니저 메인으로", Toast.LENGTH_SHORT).show();
+                Intent intent_managerLogin = new Intent(activity_user_login.this, owner_test.class);
+                startActivity(intent_managerLogin);
             } else {
                 Toast.makeText(activity_user_login.this, "Account Error", Toast.LENGTH_SHORT).show();
             }

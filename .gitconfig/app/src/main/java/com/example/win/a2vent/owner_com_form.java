@@ -99,7 +99,7 @@ public class owner_com_form extends AppCompatActivity implements View.OnClickLis
         });
 
         com_URI="temp001";
-        com_manager="ejshin";
+        com_manager="1";
 
 
 
@@ -118,7 +118,7 @@ public class owner_com_form extends AppCompatActivity implements View.OnClickLis
 //                com_manager
 //                com_URI
 //                com_ID
-                ID="ejshin";
+                ID="1";
                 com_number=v_com_number.getText().toString();
                 Toast.makeText(this,com_number+" : "+com_name+" : "+com_addr+" : "+com_category+" : "+com_manager+" : "+com_URI+" : "+ID,Toast.LENGTH_LONG).show();
 //                Toast.makeText(this,v_com_radio_culture.isChecked(),Toast.LENGTH_LONG).show();

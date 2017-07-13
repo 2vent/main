@@ -20,8 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".owner_test">
-        </activity>
+        <activity android:name=".owner_test"></activity>
         <activity android:name=".activity_user_login">
 
             <intent-filter>
@@ -30,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_user_main" />
         <activity android:name=".activity_user_join" />
         <activity android:name=".event_user_main" />
         <activity android:name=".owner_event_form" />
