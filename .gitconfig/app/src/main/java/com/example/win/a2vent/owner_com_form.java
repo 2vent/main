@@ -99,7 +99,7 @@ public class owner_com_form extends AppCompatActivity implements View.OnClickLis
         });
 
         com_URI="temp001";
-        com_manager="tlsdmswo";
+        com_manager="ejshin";
 
 
 
@@ -118,13 +118,13 @@ public class owner_com_form extends AppCompatActivity implements View.OnClickLis
 //                com_manager
 //                com_URI
 //                com_ID
-                ID="tlsdmswo";
+                ID="ejshin";
                 com_number=v_com_number.getText().toString();
-                Toast.makeText(this,com_name+":"+com_addr+":"+com_category+":"+com_manager+":"+com_URI+":"+ID,Toast.LENGTH_LONG).show();
+                Toast.makeText(this,com_number+" : "+com_name+" : "+com_addr+" : "+com_category+" : "+com_manager+" : "+com_URI+" : "+ID,Toast.LENGTH_LONG).show();
 //                Toast.makeText(this,v_com_radio_culture.isChecked(),Toast.LENGTH_LONG).show();
 
                 InsertData_com com_Task=new InsertData_com();
-                com_Task.execute(com_number,com_name,com_name,com_addr,com_category,com_manager,com_URI,ID);
+                com_Task.execute(com_number,com_name,com_addr,com_category,com_manager,com_URI,ID);
                 break;
 
         }
