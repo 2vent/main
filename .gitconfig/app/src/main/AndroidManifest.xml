@@ -20,19 +20,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".owner_test"></activity>
-        <activity android:name=".activity_user_login">
-
+        <activity android:name=".owner_Event_Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_user_join" />
-        <activity android:name=".event_user_main" />
-        <activity android:name=".owner_event_form" />
-        <activity android:name=".owner_com_form"></activity>
+        <activity android:name=".activity_User_Login">
+        </activity>
+        <activity android:name=".activity_User_Join" />
+        <activity android:name=".user_Event_Main" />
+        <activity android:name=".owner_Event_Addevent" />
+        <activity android:name=".owner_AddStore"></activity>
     </application>
 
 </manifest>

@@ -9,8 +9,6 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -27,7 +25,7 @@ import java.net.URL;
  * Created by EUNJAESHIN on 2017-07-10.
  */
 
-public class activity_user_join extends AppCompatActivity {
+public class activity_User_Join extends AppCompatActivity {
 
     ActivityUserJoinBinding binding_userJoin;
     String sex, user_type;
@@ -91,7 +89,7 @@ public class activity_user_join extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(activity_user_join.this,
+            progressDialog = ProgressDialog.show(activity_User_Join.this,
                     "Please Wait", null, true, true);
         }
 
@@ -167,10 +165,10 @@ public class activity_user_join extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result.equals("회원가입 성공!")) {
-                Intent intent_Joindone = new Intent(activity_user_join.this, activity_user_login.class);
+                Intent intent_Joindone = new Intent(activity_User_Join.this, activity_User_Login.class);
                 startActivity(intent_Joindone);
             } else if (result.equals("아이디가 존재합니다")) {
-                Toast.makeText(activity_user_join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_User_Join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
             }
             Log.d("DB", "POST response  - " + result);
         }
