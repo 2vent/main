@@ -13,17 +13,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView"
-                android:layout_alignBottom="@+id/textView"
-                android:layout_alignLeft="@+id/radioButton11"
-                android:layout_alignStart="@+id/radioButton11"
-                android:ems="10"
-                android:text="이벤트 !!" />
-
-            <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +20,7 @@
                 android:layout_alignStart="@+id/textView15"
                 android:layout_below="@+id/textView15"
                 android:layout_marginTop="25dp"
-                android:text="이벤트 명 :" />
+                android:text="이벤트 명" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -43,7 +32,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="27dp"
-                android:text="매장 : " />
+                android:text="매장 " />
 
             <TextView
                 android:id="@+id/textView3"
@@ -53,7 +42,7 @@
                 android:layout_alignStart="@+id/textView2"
                 android:layout_below="@+id/textView2"
                 android:layout_marginTop="26dp"
-                android:text="정상가 : " />
+                android:text="정상가 " />
 
             <TextView
                 android:id="@+id/textView4"
@@ -63,7 +52,7 @@
                 android:layout_alignStart="@+id/textView3"
                 android:layout_below="@+id/textView3"
                 android:layout_marginTop="31dp"
-                android:text="할인가 : " />
+                android:text="할인가 " />
 
             <TextView
                 android:id="@+id/textView5"
@@ -123,7 +112,7 @@
                 android:layout_alignStart="@+id/textView"
                 android:layout_below="@+id/textView"
                 android:layout_marginTop="21dp"
-                android:text="내용 :" />
+                android:text="내용" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -182,8 +171,7 @@
                 android:layout_alignStart="@+id/spinner2"
                 android:layout_alignTop="@+id/textView3"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/editText2"
@@ -193,8 +181,7 @@
                 android:layout_alignStart="@+id/editText"
                 android:layout_alignTop="@+id/textView4"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
@@ -249,8 +236,7 @@
                 android:layout_alignStart="@+id/radioButton10"
                 android:layout_alignTop="@+id/textView11"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -260,8 +246,7 @@
                 android:layout_alignStart="@+id/editText3"
                 android:layout_alignTop="@+id/textView12"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="date" />
 
             <EditText
                 android:id="@+id/editText5"
@@ -271,8 +256,7 @@
                 android:layout_alignStart="@+id/editText4"
                 android:layout_alignTop="@+id/textView14"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="datetime" />
 
             <RadioButton
                 android:id="@+id/radioButton11"
@@ -291,6 +275,16 @@
                 android:layout_toEndOf="@+id/radioButton11"
                 android:layout_toRightOf="@+id/radioButton11"
                 android:text="카드" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView"
+                android:layout_alignBottom="@+id/textView"
+                android:layout_alignLeft="@+id/radioButton11"
+                android:layout_alignStart="@+id/radioButton11"
+                android:ems="10" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -336,8 +330,7 @@
                 android:layout_alignStart="@+id/switch2"
                 android:layout_below="@+id/textView21"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/editText7"
@@ -347,8 +340,7 @@
                 android:layout_alignStart="@+id/radioButton13"
                 android:layout_below="@+id/editText6"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/editText8"
@@ -358,8 +350,7 @@
                 android:layout_alignStart="@+id/radioButton13"
                 android:layout_alignTop="@+id/textView20"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
 
         </RelativeLayout>
     </ScrollView>

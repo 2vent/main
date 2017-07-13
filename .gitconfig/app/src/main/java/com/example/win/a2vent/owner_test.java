@@ -50,8 +50,14 @@ public class owner_test extends AppCompatActivity implements NavigationView.OnNa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(),owner_event_form.class);
-                startActivity(intent);
+
+
+
+                    Intent intent =new Intent(getBaseContext(),owner_com_form.class);
+//                    Intent intent = new Intent(getBaseContext(), owner_event_form.class);
+                    startActivity(intent);
+
+
 
                 
                 
