@@ -38,6 +38,7 @@ public class owner_Event_Main extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.owner_event_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.owner_toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
