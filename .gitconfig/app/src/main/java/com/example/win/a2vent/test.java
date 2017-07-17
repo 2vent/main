@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
@@ -370,8 +371,11 @@ public class test extends AppCompatActivity {
             if(data==null){
                 return;
             }
+
             photoUri = data.getData();
             cropImage();
+
+
         } else if (requestCode == PICK_FROM_CAMERA) {
             cropImage();
             MediaScannerConnection.scanFile(test.this, //앨범에 사진을 보여주기 위해 Scan을 합니다.
@@ -382,13 +386,16 @@ public class test extends AppCompatActivity {
                     });
         } else if (requestCode == CROP_FROM_CAMERA) {
             try { //저는 bitmap 형태의 이미지로 가져오기 위해 아래와 같이 작업하였으며 Thumbnail을 추출하였습니다.
+//                this.grantUriPermission("com", photoUri,
+//                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
                 Bitmap thumbImage = ThumbnailUtils.extractThumbnail(bitmap, 128, 128);
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
                 thumbImage.compress(Bitmap.CompressFormat.JPEG, 100, bs); //이미지가 클 경우 OutOfMemoryException 발생이 예상되어 압축
 
+
                 //여기서는 ImageView에 setImageBitmap을 활용하여 해당 이미지에 그림을 띄우시면 됩니다.
-                iv.setImageBitmap(thumbImage);
+                iv.setImageBitmap(bitmap);
 
             } catch (Exception e) {
                 Log.e("ERROR", e.getMessage().toString());
@@ -455,6 +462,8 @@ public class test extends AppCompatActivity {
         }
 
     }
+
+
 
 
 }
