@@ -35,10 +35,14 @@ public class user_Event_Adapter extends RecyclerView.Adapter<user_Event_Holder> 
 
     @Override
     public void onBindViewHolder(user_Event_Holder holder, int position) {
-        holder.imageView.setImageResource(mItems.get(position).image);
-        holder.textView.setText(mItems.get(position).imagetitle);
+        holder.textView1.setText(mItems.get(position).event_name);
+        holder.textView2.setText(mItems.get(position).event_URI);
+        holder.textView3.setText(mItems.get(position).event_price);
+        holder.textView4.setText(mItems.get(position).event_dis_price);
+        holder.textView5.setText(mItems.get(position).event_startday);
+        holder.textView6.setText(mItems.get(position).event_endday);
 
-        setAnimation(holder.imageView, position);
+//        setAnimation(holder.imageView, position);
     }
 
     @Override
