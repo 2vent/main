@@ -27,7 +27,9 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -101,6 +103,9 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         v_com_iv = (ImageView) findViewById(R.id.com_form_iv);
         v_com_button = (Button) findViewById(R.id.com_button);
 
+        clicked clicked = new clicked();
+        v_com_button.setOnClickListener(clicked);
+
         v_com_radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -144,6 +149,33 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    class clicked implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+            switch (v.getId()) {
+                case R.id.com_button:
+                    com_number = v_com_number.getText().toString();
+                    com_name = v_com_name.getText().toString();
+                    com_addr = v_com_addr.getText().toString();
+//                com_category
+//                com_manager
+//                com_URI
+//                com_ID
+                    ID = "1";
+                    com_manager = "1";
+                    com_URI = "temp001";
+
+                    Log.i("asyntask","됨");
+                    InsertData_com com_Task = new InsertData_com();
+                    Log.i("asyntask","됨");
+                    com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID,file_dir+""+file_name,file_dir,file_name);
+
+                    break;
+
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -156,11 +188,14 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 //                com_URI
 //                com_ID
                 ID = "1";
-                com_manager = "1";
+                com_manager = "2";
                 com_URI = "temp001";
 
+                Log.i("asyntask","됨");
                 InsertData_com com_Task = new InsertData_com();
-                com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID);
+                Log.i("asyntask","됨");
+                com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID,file_dir+""+file_name,file_dir,file_name);
+
                 break;
 
         }
@@ -174,6 +209,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         protected void onPreExecute() {
             super.onPreExecute();
 
+            Log.i("asyntask","됨");
             progressDialog = ProgressDialog.show(owner_AddStore.this,
                     "Please Wait", null, true, true);
         }
@@ -188,27 +224,128 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             String com_manager = (String) params[4];
             String com_URI = (String) params[5];
             String id = (String) params[6];
+            String sourceFileUri=(String) params[7];
+            String file_dir=(String)params[8];
+            String file_name=(String)params[9];
 
-            String serverURL = "http://192.168.0.106/eventApp/2ventAddstore.php";
+
+            String fileName = sourceFileUri;
+            String uploadFilePath = file_dir;
+            String uploadFileName = file_name;
+            File sourceFile = new File(sourceFileUri);
+
+            DataOutputStream dos = null;
+            String lineEnd = "\r\n";
+            String twoHyphens = "--";
+            String boundary = "*****";
+            int bytesRead, bytesAvailable, bufferSize;
+            int maxBufferSize = 1 * 1024 * 1024;
+            byte[] buffer;
+
+            String serverURL = "http://192.168.0.106/eventApp/YTest.php";
             String postParameters = "&com_number=" + com_number + "&com_name=" + com_name
                     + "&com_addr=" + com_addr + "&com_category=" + com_category
                     + "&com_manager=" + com_manager + "&com_URI=" + com_URI + "&id=" + id;
 
+
             try {
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
-                //httpURLConnection.setRequestProperty("content-type", "application/json");
-                httpURLConnection.setDoInput(true);
+//                httpURLConnection.setRequestProperty("content-type", "application/json");
+//                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoInput(true); // Allow Inputs
+                httpURLConnection.setDoOutput(true); // Allow Outputs
+                httpURLConnection.setUseCaches(false); // Don't use a Cached Copy
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+                httpURLConnection.setRequestProperty("ENCTYPE", "multipart/form-data");
+                httpURLConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                httpURLConnection.setRequestProperty("uploaded_file", fileName);
+
                 httpURLConnection.connect();
 
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
+
+//                OutputStream outputStream = httpURLConnection.getOutputStream();
+//                outputStream.write(postParameters.getBytes("UTF-8"));
+
+
+                dos = new DataOutputStream(httpURLConnection.getOutputStream());
+
+                //send string data
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_number\"\r\n\r\n"+com_number+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_name\"\r\n\r\n"+com_name+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_addr\"\r\n\r\n"+com_addr+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_category\"\r\n\r\n"+com_category+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_manager\"\r\n\r\n"+com_manager+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_URI\"\r\n\r\n"+com_URI+"\"");
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"id\"\r\n\r\n\""+id+"\"");
+
+                dos.writeBytes(lineEnd);
+
+
+
+
+
+
+
+                //send image
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                        + fileName + "\"" + lineEnd);
+
+                dos.writeBytes(lineEnd);
+
+                // create a buffer of  maximum size
+                bytesAvailable = fileInputStream.available();
+
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                buffer = new byte[bufferSize];
+
+                // read file and write it into form...
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+                while (bytesRead > 0) {
+
+                    dos.write(buffer, 0, bufferSize);
+                    bytesAvailable = fileInputStream.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+                }
+
+                // send multipart form data necesssary after file data...
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+
+
+//                outputStream.flush();
+//                outputStream.close();
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d("DB", "POST response code - " + responseStatusCode);

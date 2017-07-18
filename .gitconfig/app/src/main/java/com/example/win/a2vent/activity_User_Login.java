@@ -1,5 +1,6 @@
 package com.example.win.a2vent;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.win.a2vent.databinding.ActivityUserLoginBinding;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
@@ -35,6 +39,23 @@ public class activity_User_Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding_userLogin = DataBindingUtil.setContentView(this, R.layout.activity_user_login);
+
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(activity_User_Login.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(activity_User_Login.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        new TedPermission(this).setPermissionListener(permissionListener)
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET, Manifest.permission.CAMERA)
+                .check();
+
 
     }
 
