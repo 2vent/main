@@ -59,7 +59,6 @@ public class test extends AppCompatActivity {
 //     String uploadFileName=null; //전송하고자하는 파일 이름
 
 
-
     //사진 관련
     ImageView iv;
     Button btn_gall;
@@ -76,9 +75,8 @@ public class test extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        uploadButton = (Button)findViewById(R.id.uploadButton);
-        messageText  = (TextView)findViewById(R.id.messageText);
-
+        uploadButton = (Button) findViewById(R.id.uploadButton);
+        messageText = (TextView) findViewById(R.id.messageText);
 
 
         //퍼미션 리스너
@@ -95,14 +93,8 @@ public class test extends AppCompatActivity {
         };
 
         new TedPermission(this).setPermissionListener(permissionListener)
-                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_NETWORK_STATE,Manifest.permission.INTERNET,Manifest.permission.CAMERA)
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET, Manifest.permission.CAMERA)
                 .check();
-
-
-
-
-
-
 
 
 //        messageText.setText("Uploading file path :- '/mnt/sdcard/"+uploadFileName+"'");
@@ -120,8 +112,8 @@ public class test extends AppCompatActivity {
 
                 dialog = ProgressDialog.show(test.this, "", "Uploading file...", true);
 
-                Log.e("파일 위치 : ",file_dir);
-                Log.e("파일 명 : ",file_name);
+                Log.e("파일 위치 : ", file_dir);
+                Log.e("파일 명 : ", file_name);
 
                 new Thread(new Runnable() {
                     public void run() {
@@ -131,8 +123,7 @@ public class test extends AppCompatActivity {
                             }
                         });
 
-                        uploadFile(file_dir + "" + file_name,file_dir,file_name);
-
+                        uploadFile(file_dir + "" + file_name, file_dir, file_name);
 
 
                     }
@@ -161,21 +152,13 @@ public class test extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
     }
 
-    public int uploadFile(String sourceFileUri,String file_dir,String file_name) {
+    public int uploadFile(String sourceFileUri, String file_dir, String file_name) {
 
         String fileName = sourceFileUri;
-        String uploadFilePath=file_dir;
-        String uploadFileName=file_name;
+        String uploadFilePath = file_dir;
+        String uploadFileName = file_name;
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
         String lineEnd = "\r\n";
@@ -192,7 +175,7 @@ public class test extends AppCompatActivity {
 
 
             Log.e("uploadFile", "Source File not exist :"
-                    +uploadFilePath + "" + uploadFileName);
+                    + uploadFilePath + "" + uploadFileName);
 
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -203,9 +186,7 @@ public class test extends AppCompatActivity {
 
             return 0;
 
-        }
-        else
-        {
+        } else {
             try {
 
                 // open a URL connection to the Servlet
@@ -260,7 +241,7 @@ public class test extends AppCompatActivity {
                 Log.i("uploadFile", "HTTP Response is : "
                         + serverResponseMessage + ": " + serverResponseCode);
 
-                if(serverResponseCode == 200){
+                if (serverResponseCode == 200) {
 
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -323,7 +304,8 @@ public class test extends AppCompatActivity {
         try {
             photoFile = createImageFile();
         } catch (IOException e) {
-            Toast.makeText(test.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();              finish();
+            Toast.makeText(test.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
         }
         if (photoFile != null) {
             photoUri = FileProvider.getUriForFile(test.this,
@@ -349,8 +331,8 @@ public class test extends AppCompatActivity {
                 ".jpg",
                 storageDir
         );
-        file_dir=storageDir.toString()+"/";
-        file_name=image.getName();
+        file_dir = storageDir.toString() + "/";
+        file_name = image.getName();
 
         return image;
     }
@@ -368,7 +350,7 @@ public class test extends AppCompatActivity {
             Toast.makeText(test.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
         }
         if (requestCode == PICK_FROM_ALBUM) {
-            if(data==null){
+            if (data == null) {
                 return;
             }
 
@@ -462,8 +444,6 @@ public class test extends AppCompatActivity {
         }
 
     }
-
-
 
 
 }
