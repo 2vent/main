@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,7 @@ public class user_Event_Adapter extends RecyclerView.Adapter<user_Event_Holder> 
     private Context context;
     private ArrayList<user_Event_Item> mItems = new ArrayList<user_Event_Item>();
     private int lastPosition = -1;
+    private String source_URI = "http://192.168.0.106/eventApp/";
 
     public user_Event_Adapter(ArrayList items, Context mContext) {
         mItems = items;
@@ -35,14 +38,15 @@ public class user_Event_Adapter extends RecyclerView.Adapter<user_Event_Holder> 
 
     @Override
     public void onBindViewHolder(user_Event_Holder holder, int position) {
+        Picasso.with(context).load(source_URI + mItems.get(position).event_URI)
+                .placeholder(R.drawable.events_medium).into(holder.imageView);
         holder.textView1.setText(mItems.get(position).event_name);
-        holder.textView2.setText(mItems.get(position).event_URI);
-        holder.textView3.setText(mItems.get(position).event_price);
-        holder.textView4.setText(mItems.get(position).event_dis_price);
-        holder.textView5.setText(mItems.get(position).event_startday);
-        holder.textView6.setText(mItems.get(position).event_endday);
+        holder.textView2.setText(mItems.get(position).event_price);
+        holder.textView3.setText(mItems.get(position).event_dis_price);
+        holder.textView4.setText(mItems.get(position).event_startday);
+        holder.textView5.setText(mItems.get(position).event_endday);
 
-//        setAnimation(holder.imageView, position);
+        setAnimation(holder.imageView, position);
     }
 
     @Override
@@ -60,3 +64,5 @@ public class user_Event_Adapter extends RecyclerView.Adapter<user_Event_Holder> 
     }
 
 }
+
+

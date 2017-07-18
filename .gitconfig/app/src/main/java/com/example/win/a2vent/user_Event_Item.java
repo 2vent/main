@@ -1,9 +1,5 @@
 package com.example.win.a2vent;
 
-import android.net.Uri;
-
-import java.net.URI;
-
 /**
  * Created by EUNJAESHIN on 2017-07-10.
  */
@@ -18,9 +14,7 @@ public class user_Event_Item {
         return event_name;
     }
 
-    public String getEventURI() {
-        return event_URI;
-    }
+    public String getEventURI() { return event_URI; }
 
     public String getEventPrice() {
         return event_price;

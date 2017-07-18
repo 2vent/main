@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,14 +26,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-
 /**
  * Created by EUNJAESHIN on 2017-07-10.
  */
 
 public class user_Event_Main extends AppCompatActivity {
     private static String TAG = "JSON으로 데이터 가져오기";
-    private static final String TAG_JSON = "event";
+    private static final String TAG_JSON = "Event";
     private static final String TAG_NAME = "event_name";
     private static final String TAG_URI = "event_URI";
     private static final String TAG_PRICE = "event_price";
@@ -58,7 +56,7 @@ public class user_Event_Main extends AppCompatActivity {
         mContext = getApplicationContext();
 
         getEventDB = new GetEventDB();
-        getEventDB.execute("http://192.168.0.106/EventApp/2ventGetevent.php");
+        getEventDB.execute("http://192.168.0.106/EventApp/2ventGetEvent.php");
     }
 
     public void onClick_Accountinfo(View v) {
