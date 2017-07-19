@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -25,7 +27,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -33,11 +40,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +69,6 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     RadioGroup v_com_radio;
 
 
-
     String com_name;
     String com_addr;
     String com_category;
@@ -68,6 +78,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     //이미지 삽입 해야됨
     String ID;
     String com_number;
+    ArrayList<String> managerList = null;
 
     //사진 관련
     Button btn_gall;
@@ -75,7 +86,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     Uri photoUri;
     String file_name;
     String file_dir;
-
+    String [] city = null;
     private static final int PICK_FROM_CAMERA = 1; //카메라 촬영으로 사진 가져오기
     private static final int PICK_FROM_ALBUM = 2; //앨범에서 사진 가져오기
     private static final int CROP_FROM_CAMERA = 3; //가져온 사진을 자르기 위한 변수
@@ -96,8 +107,8 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         v_com_manager = (Spinner) findViewById(R.id.com_form_manager);
         v_com_number = (TextView) findViewById(R.id.com_form_number);
         v_com_radio = (RadioGroup) findViewById(R.id.com_form_radio);
-        btn_gall=(Button) findViewById(R.id.com_btn_gall);
-        btn_picture=(Button) findViewById(R.id.com_btn_picture);
+        btn_gall = (Button) findViewById(R.id.com_btn_gall);
+        btn_picture = (Button) findViewById(R.id.com_btn_picture);
 
 //        v_com_URI
         v_com_iv = (ImageView) findViewById(R.id.com_form_iv);
@@ -146,12 +157,76 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+
+        managerList = new ArrayList<String>();
+
+
+
+
+
+//        Log.e("시티",city.toString());
+
+
+
+        Thread workingTread = new Thread(){
+            public void run(){
+
+                    getManager getManager = new getManager();
+                    getManager.execute();
+
+
+                }
+
+        };
+
+        workingTread.start();
+        try {
+            workingTread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        city=new String[managerList.size()];
+
+        for(int i = 0; i<city.length;i++){
+            city[i]=managerList.get(i);
+
+        }
+
+
+//        Log.e("왜", String.valueOf(managerList.get(4)));
+
+        Log.e("새로 만든거", String.valueOf(city.length));
+
+
+        ArrayAdapter spin_adapter = new ArrayAdapter(getApplicationContext(), R.layout.owner_addstore_spin, city);
+        spin_adapter.setDropDownViewResource(R.layout.owner_addstore_spin_drop);
+
+        v_com_manager.setAdapter(spin_adapter);
+        v_com_manager.setSelection(0);
+//        Log.e("매니저 값",v_com_manager.getSelectedItem());
+        v_com_manager.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                v_com_manager.setSelection(Integer.parseInt(managerList.get(position).toString()));
+                Log.e("매니저",v_com_manager.getSelectedItem().toString());
+                Toast.makeText(getApplicationContext(),Integer.toString(position),Toast.LENGTH_LONG).show();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
 
-    class clicked implements View.OnClickListener{
+    class clicked implements View.OnClickListener {
         @Override
-        public void onClick(View v){
+        public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.com_button:
                     com_number = v_com_number.getText().toString();
@@ -165,10 +240,10 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                     com_manager = "1";
                     com_URI = "temp001";
 
-                    Log.i("asyntask","됨");
+                    Log.i("asyntask", "됨");
                     InsertData_com com_Task = new InsertData_com();
-                    Log.i("asyntask","됨");
-                    com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID,file_dir+""+file_name,file_dir,file_name);
+                    Log.i("asyntask", "됨");
+                    com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID, file_dir + "" + file_name, file_dir, file_name);
 
                     break;
 
@@ -191,10 +266,10 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 com_manager = "2";
                 com_URI = "temp001";
 
-                Log.i("asyntask","됨");
+                Log.i("asyntask", "됨");
                 InsertData_com com_Task = new InsertData_com();
-                Log.i("asyntask","됨");
-                com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID,file_dir+""+file_name,file_dir,file_name);
+                Log.i("asyntask", "됨");
+                com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID, file_dir + "" + file_name, file_dir, file_name);
 
                 break;
 
@@ -209,7 +284,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         protected void onPreExecute() {
             super.onPreExecute();
 
-            Log.i("asyntask","됨");
+            Log.i("asyntask", "됨");
             progressDialog = ProgressDialog.show(owner_AddStore.this,
                     "Please Wait", null, true, true);
         }
@@ -224,9 +299,9 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             String com_manager = (String) params[4];
             String com_URI = (String) params[5];
             String id = (String) params[6];
-            String sourceFileUri=(String) params[7];
-            String file_dir=(String)params[8];
-            String file_name=(String)params[9];
+            String sourceFileUri = (String) params[7];
+            String file_dir = (String) params[8];
+            String file_name = (String) params[9];
 
 
             String fileName = sourceFileUri;
@@ -279,43 +354,38 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
                 //send string data
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_number\"\r\n\r\n"+com_number+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_number\"\r\n\r\n" + com_number);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_name\"\r\n\r\n"+com_name+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_name\"\r\n\r\n" + com_name);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_addr\"\r\n\r\n"+com_addr+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_addr\"\r\n\r\n" + com_addr);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_category\"\r\n\r\n"+com_category+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_category\"\r\n\r\n" + com_category);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_manager\"\r\n\r\n"+com_manager+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_manager\"\r\n\r\n" + com_manager);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"com_URI\"\r\n\r\n"+com_URI+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"com_URI\"\r\n\r\n" + com_URI);
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-                dos.writeBytes("Content-Disposition: form-data; name=\"id\"\r\n\r\n\""+id+"\"");
+                dos.writeBytes("Content-Disposition: form-data; name=\"id\"\r\n\r\n" + id);
 
                 dos.writeBytes(lineEnd);
-
-
-
-
-
 
 
                 //send image
                 dos.writeBytes(twoHyphens + boundary + lineEnd);
-                    dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+                dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
                         + fileName + "\"" + lineEnd);
 
                 dos.writeBytes(lineEnd);
@@ -341,7 +411,6 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 // send multipart form data necesssary after file data...
                 dos.writeBytes(lineEnd);
                 dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
 
 
 //                outputStream.flush();
@@ -388,13 +457,15 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //사진을 찍기 위하여 설정합니다.
         File photoFile = null;
         try {
             photoFile = createImageFile();
         } catch (IOException e) {
-            Toast.makeText(owner_AddStore.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();              finish();
+            Toast.makeText(owner_AddStore.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
         }
         if (photoFile != null) {
             photoUri = FileProvider.getUriForFile(owner_AddStore.this,
@@ -420,8 +491,8 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 ".jpg",
                 storageDir
         );
-        file_dir=storageDir.toString()+"/";
-        file_name=image.getName();
+        file_dir = storageDir.toString() + "/";
+        file_name = image.getName();
 
         return image;
     }
@@ -439,7 +510,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(owner_AddStore.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
         }
         if (requestCode == PICK_FROM_ALBUM) {
-            if(data==null){
+            if (data == null) {
                 return;
             }
 
@@ -533,4 +604,98 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
+
+    private class getManager extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+
+        protected String doInBackground(String... args) {
+            StringBuilder sb = null;
+            try {
+
+
+                URL url = new URL("http://192.168.0.106/EventApp/2ventAddstoreGetManager.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream os = httpURLConnection.getOutputStream();
+
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF8"));
+//                writer.write("?event_number="+args[0]);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                httpURLConnection.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "UTF8")); //캐릭터셋 설정
+
+                sb = new StringBuilder();
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    if (sb.length() > 0) {
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("받은 json ", s);
+            jsonParser(s);
+
+
+
+
+        }
+
+    }
+
+    public void jsonParser(String s) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(s);
+
+            JSONArray jsonArray = jsonObject.getJSONArray("manager");
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+//                managerList.
+                managerList.add(item.getString("id"));
+//                managerList.add(item.getgetString("id"));
+//            managerList.add(item.getString());
+                Log.e("item",item.toString());
+
+            }
+            Log.e("히",jsonArray.toString());
+            Log.e("뭐야",String.valueOf(managerList.size()));
+
+            Log.i("욥",managerList.toString());
+            Log.e("흠",managerList.get(2));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

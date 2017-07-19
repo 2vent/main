@@ -26,7 +26,8 @@
                 android:layout_marginTop="25dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Company" />
+                android:hint="Company"/>
+
 
             <TextView
                 android:id="@+id/textView6"
@@ -88,7 +89,7 @@
                 android:layout_alignTop="@+id/textView7"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Name" />
 
             <RadioGroup
                 android:id="@+id/com_form_radio"
