@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Administrator on 2017-07-10.
+ * Created by EUNJAESHIN on 2017-07-10.
+ * 뷰홀더만
  */
 
 public class user_Event_Holder extends RecyclerView.ViewHolder {
@@ -20,8 +21,8 @@ public class user_Event_Holder extends RecyclerView.ViewHolder {
         imageView = (ImageView) itemView.findViewById(R.id.cardview_image);
         textView1 = (TextView) itemView.findViewById(R.id.cardview_text1);
         textView2 = (TextView) itemView.findViewById(R.id.cardview_text2);
+        textView2.setPaintFlags(textView2.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG); // 삭선
         textView3 = (TextView) itemView.findViewById(R.id.cardview_text3);
-        textView3.setPaintFlags(textView3.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         textView4 = (TextView) itemView.findViewById(R.id.cardview_text4);
         textView5 = (TextView) itemView.findViewById(R.id.cardview_text5);
 

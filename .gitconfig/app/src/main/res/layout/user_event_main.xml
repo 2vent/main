@@ -79,13 +79,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rview_content3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#2196F3"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="TAB CONTENT 3" />
+                        app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,13 +92,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rview_content4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#7c4dff"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="TAB CONTENT 4" />
+                        app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,13 +105,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rview_content5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#7c4dff"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="TAB CONTENT 5" />
+                        app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>
 
             </FrameLayout>

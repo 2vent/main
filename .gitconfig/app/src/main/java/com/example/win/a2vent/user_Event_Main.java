@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
+ * 사용자 메인 화면
  */
 
 public class user_Event_Main extends AppCompatActivity {
@@ -39,23 +40,25 @@ public class user_Event_Main extends AppCompatActivity {
     private static final String TAG_DISPRICE = "event_dis_price";
     private static final String TAG_STARTDAY = "event_startday";
     private static final String TAG_ENDDAY = "event_endday";
-    GetEventDB getEventDB;
 
-    UserEventMainBinding binding_userMain;
+    UserEventMainBinding binding_UserMain;
+    static RecyclerView mRecyclerView; // 어댑터에서 쓸 인스턴스
     Context mContext;
     RecyclerView.Adapter rAdapter1;
     ArrayList category_all;
     String mJsonString;
+    getEventDB getEventDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding_userMain = DataBindingUtil.setContentView(this, R.layout.user_event_main);
+        binding_UserMain = DataBindingUtil.setContentView(this, R.layout.user_event_main);
         set_TabHost(this);
 
         mContext = getApplicationContext();
+        mRecyclerView = binding_UserMain.rviewContent1;
 
-        getEventDB = new GetEventDB();
+        getEventDB = new getEventDB();
         getEventDB.execute("http://192.168.0.106/EventApp/2ventGetEvent.php");
     }
 
@@ -97,7 +100,7 @@ public class user_Event_Main extends AppCompatActivity {
         tabHost.addTab(tabSpec5);
     }
 
-    private class GetEventDB extends AsyncTask<String, Void, String> {
+    private class getEventDB extends AsyncTask<String, Void, String> { // 이벤트 받아오기
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -120,7 +123,7 @@ public class user_Event_Main extends AppCompatActivity {
 
             } else {
                 mJsonString = result;
-                showResult();
+                addItemInCategory();
             }
         }
 
@@ -159,7 +162,7 @@ public class user_Event_Main extends AppCompatActivity {
 
                 return sb.toString().trim();
             } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
+                Log.d(TAG, "getEventDB Error : ", e);
                 errorString = e.toString();
 
                 return null;
@@ -168,7 +171,7 @@ public class user_Event_Main extends AppCompatActivity {
 
     }
 
-    private void showResult() {
+    private void addItemInCategory() {
         category_all = new ArrayList<>();
 
         try {
@@ -192,14 +195,30 @@ public class user_Event_Main extends AppCompatActivity {
             }
 
             rAdapter1 = new user_Event_Adapter(category_all, mContext);
-            binding_userMain.rviewContent1.setAdapter(rAdapter1);
-            binding_userMain.rviewContent1.setHasFixedSize(true);
+            binding_UserMain.rviewContent1.setAdapter(rAdapter1);
+            binding_UserMain.rviewContent1.setHasFixedSize(true);
 
             rAdapter1.notifyDataSetChanged();
 
         } catch (JSONException e) {
-            Log.d(TAG, "showResult : ", e);
+            Log.d(TAG, "addItemInCategory Error : ", e);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (getEventDB != null) {
+            getEventDB.cancel(true);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if (getEventDB != null) {
+            getEventDB.cancel(true);
+        }
+        super.onPause();
     }
 
 }

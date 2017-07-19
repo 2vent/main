@@ -28,61 +28,69 @@ import java.net.URL;
 public class activity_User_Join extends AppCompatActivity {
 
     ActivityUserJoinBinding binding_userJoin;
-    String sex, user_type, test;
+    String sex, user_type;
+    String id, pw, name, addr, birth, phone, accountnumber; // 회원가입 시 사용될 String 변수
+    JoinDB joinDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding_userJoin = DataBindingUtil.setContentView(this, R.layout.activity_user_join);
 
+//        라디오버튼 체크리스너
         binding_userJoin.rGroupSex.setOnCheckedChangeListener
                 (new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId) {
-                    case R.id.rBt_sex0:
-                        sex = "0";
-                        break;
-                    case R.id.rBt_sex1:
-                        sex = "1";
-                        break;
-                }
-            }
-        });
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        switch (checkedId) {
+                            case R.id.rBt_sex0:
+                                sex = "0";
+                                break;
+                            case R.id.rBt_sex1:
+                                sex = "1";
+                                break;
+                        }
+                    }
+                });
         binding_userJoin.rGroupType.setOnCheckedChangeListener
                 (new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId) {
-                    case R.id.rBt_user0:
-                        user_type = "1";
-                        break;
-                    case R.id.rBt_user1:
-                        user_type = "2";
-                        break;
-                    case R.id.rBt_user2:
-                        user_type = "2";
-                        break;
-                }
-            }
-        });
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        switch (checkedId) {
+                            case R.id.rBt_user0:
+                                user_type = "1";
+                                break;
+                            case R.id.rBt_user1:
+                                user_type = "2";
+                                break;
+                            case R.id.rBt_user2:
+                                user_type = "2";
+                                break;
+                        }
+                    }
+                });
 
     }
 
+    //    회원가입 버튼
     public void onClick_joinOK(View view) {
-        String id = binding_userJoin.eTextJoinId.getText().toString();
-        String pw = binding_userJoin.eTextJoinPw.getText().toString();
-        String name = binding_userJoin.eTextJoinName.getText().toString();
-        String addr = binding_userJoin.eTextJoinAddr.getText().toString();
-        String birth = binding_userJoin.eTextJoinBirth.getText().toString();
-        String phone = binding_userJoin.eTextJoinPhone.getText().toString();
-        String accountnumber = binding_userJoin.eTextJoinAccountnumber.getText().toString();
+        try {
+            id = binding_userJoin.eTextJoinId.getText().toString();
+            pw = binding_userJoin.eTextJoinPw.getText().toString();
+            name = binding_userJoin.eTextJoinName.getText().toString();
+            addr = binding_userJoin.eTextJoinAddr.getText().toString();
+            birth = binding_userJoin.eTextJoinBirth.getText().toString();
+            phone = binding_userJoin.eTextJoinPhone.getText().toString();
+            accountnumber = binding_userJoin.eTextJoinAccountnumber.getText().toString();
+        } catch (NullPointerException e) {
+            Log.e("Join Error :", e.getMessage());
+        }
 
-        InsertData joinTask = new InsertData();
-        joinTask.execute(id, pw, name, addr, birth, sex, phone, user_type, accountnumber);
+        joinDB = new JoinDB();
+        joinDB.execute(id, pw, name, addr, birth, sex, phone, user_type, accountnumber);
     }
 
-    class InsertData extends AsyncTask<String, Void, String> {
+    class JoinDB extends AsyncTask<String, Void, String> { // 회원가입
         ProgressDialog progressDialog;
 
         @Override
@@ -137,7 +145,6 @@ public class activity_User_Join extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -164,6 +171,7 @@ public class activity_User_Join extends AppCompatActivity {
 
             progressDialog.dismiss();
 
+//            2ventRegister.php의 echo(result)와 비교하여 회원가입 성공 및 실패
             if (result.equals("회원가입 성공!")) {
                 Intent intent_Joindone = new Intent(activity_User_Join.this, activity_User_Login.class);
                 startActivity(intent_Joindone);
@@ -175,5 +183,20 @@ public class activity_User_Join extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        if (joinDB != null) {
+            joinDB.cancel(true);
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if (joinDB != null) {
+            joinDB.cancel(true);
+        }
+        super.onPause();
+    }
 }
 

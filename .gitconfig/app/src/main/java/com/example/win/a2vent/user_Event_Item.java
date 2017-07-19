@@ -2,6 +2,7 @@ package com.example.win.a2vent;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
+ * View의 아이템
  */
 
 public class user_Event_Item {
@@ -20,9 +21,7 @@ public class user_Event_Item {
         return event_price;
     }
 
-    public String getEventDisprice() {
-        return event_dis_price;
-    }
+    public String getEventDisprice() { return event_dis_price; }
 
     public String getEventStartday() {
         return event_startday;

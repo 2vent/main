@@ -22,14 +22,15 @@ import java.net.URL;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
+ * 로그인 화면 ( 첫화면 )
  */
 
 public class activity_User_Login extends AppCompatActivity {
 
-    String sId, sPw, test;
-    ActivityUserLoginBinding binding_userLogin;
     private long backKeyPressedTime = 0;
-    loginDB login_DB;
+    String sId, sPw;
+    ActivityUserLoginBinding binding_userLogin;
+    loginDB loginDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +39,24 @@ public class activity_User_Login extends AppCompatActivity {
 
     }
 
-    public void onClick_login(View view) {
+    public void onClick_login(View view) { // 로그인 버튼
         try {
             sId = binding_userLogin.eTextLoginId.getText().toString();
             sPw = binding_userLogin.eTextLoginPw.getText().toString();
         } catch (NullPointerException e) {
-            Log.e("err", e.getMessage());
+            Log.e("onClick_login Error :", e.getMessage());
         }
 
-        login_DB = new loginDB();
-        login_DB.execute(sId, sPw);
-
+        loginDB = new loginDB();
+        loginDB.execute(sId, sPw);
     }
 
-    public void onClick_join(View view) {
+    public void onClick_join(View view) { // 회원가입 액티비티로
         Intent intent_join = new Intent(activity_User_Login.this, activity_User_Join.class);
         startActivity(intent_join);
     }
 
-    public void onBackPressed() {
+    public void onBackPressed() { // 백키 2번해야 종료
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
             Toast.makeText(activity_User_Login.this,
@@ -70,7 +70,7 @@ public class activity_User_Login extends AppCompatActivity {
         }
     }
 
-    class loginDB extends AsyncTask<String, Void, String> {
+    class loginDB extends AsyncTask<String, Void, String> { // 로그인
         ProgressDialog progressDialog;
 
         @Override
@@ -131,7 +131,7 @@ public class activity_User_Login extends AppCompatActivity {
                 return sb.toString();
 
             } catch (Exception e) {
-                Log.d("DB", "LoginDB: Error ", e);
+                Log.d("DB", "loginDB Error : ", e);
 
                 return new String("Error: " + e.getMessage());
             }
@@ -143,6 +143,7 @@ public class activity_User_Login extends AppCompatActivity {
 
             progressDialog.dismiss();
 
+//            2ventLogin.php의 결과값과 비교하여 로그인 성공 및 실패
             if (result.equals("0")) {
                 Toast.makeText(activity_User_Login.this, "Account Error", Toast.LENGTH_SHORT).show();
             } else if (result.equals("1")) {
@@ -155,23 +156,23 @@ public class activity_User_Login extends AppCompatActivity {
                 Toast.makeText(activity_User_Login.this, "Account Error", Toast.LENGTH_SHORT).show();
             }
 
-            Log.d("DB", "POST response  - " + result);
+            Log.d("DB", "POST response - " + result);
         }
 
     }
 
     @Override
     protected void onDestroy() {
-        if (login_DB != null) {
-            login_DB.cancel(true);
+        if (loginDB != null) {
+            loginDB.cancel(true);
         }
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        if (login_DB != null) {
-            login_DB.cancel(true);
+        if (loginDB != null) {
+            loginDB.cancel(true);
         }
         super.onPause();
     }
