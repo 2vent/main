@@ -22,10 +22,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static com.example.win.a2vent.activity_User_Login.savedID;
 import static com.example.win.a2vent.user_Event_Adapter.source_URI;
 
 /**
@@ -60,8 +62,6 @@ public class user_Event_Main extends AppCompatActivity {
         mContext = getApplicationContext();
         mRecyclerView = binding_UserMain.rviewContent1;
 
-        Log.i("앙", activity_User_Login.savedID);
-
         getEventDB = new getEventDB();
         getEventDB.execute(source_URI + "2ventGetEventAll.php");
     }
@@ -78,27 +78,27 @@ public class user_Event_Main extends AppCompatActivity {
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost_usermain);
         tabHost.setup();
 
-        final TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab Spec 1");
+        TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("전체");
         tabSpec1.setContent(R.id.content1);
         tabSpec1.setIndicator("전체");
         tabHost.addTab(tabSpec1);
 
-        final TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab Spec 2");
+        TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("문화");
         tabSpec2.setContent(R.id.content2);
         tabSpec2.setIndicator("문화");
         tabHost.addTab(tabSpec2);
 
-        final TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab Spec 3");
+        TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("외식");
         tabSpec3.setContent(R.id.content3);
         tabSpec3.setIndicator("외식");
         tabHost.addTab(tabSpec3);
 
-        final TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("Tab Spec 4");
+        TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("뷰티");
         tabSpec4.setContent(R.id.content4);
         tabSpec4.setIndicator("뷰티");
         tabHost.addTab(tabSpec4);
 
-        final TabHost.TabSpec tabSpec5 = tabHost.newTabSpec("Tab Spec 5");
+        TabHost.TabSpec tabSpec5 = tabHost.newTabSpec("패션");
         tabSpec5.setContent(R.id.content5);
         tabSpec5.setIndicator("패션");
         tabHost.addTab(tabSpec5);
@@ -106,16 +106,16 @@ public class user_Event_Main extends AppCompatActivity {
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                if (tabSpec1.equals(tabId)) {
-
-                } else if (tabSpec2.equals(tabId)) {
-
-                } else if (tabSpec3.equals(tabId)) {
-
-                } else if (tabSpec4.equals(tabId)) {
-
-                } else if (tabSpec5.equals(tabId)) {
-
+                if (tabId == "전체") {
+                    Toast.makeText(user_Event_Main.this, "전체", Toast.LENGTH_SHORT).show();
+                } else if (tabId == "문화") {
+                    Toast.makeText(user_Event_Main.this, "문화", Toast.LENGTH_SHORT).show();
+                } else if (tabId == "외식") {
+                    Toast.makeText(user_Event_Main.this, "외식", Toast.LENGTH_SHORT).show();
+                } else if (tabId == "뷰티") {
+                    Toast.makeText(user_Event_Main.this, "뷰티", Toast.LENGTH_SHORT).show();
+                } else if (tabId == "패션") {
+                    Toast.makeText(user_Event_Main.this, "패션", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -144,7 +144,7 @@ public class user_Event_Main extends AppCompatActivity {
 
             } else {
                 mJsonString = result;
-                addItemInCategory();
+                addItemInCategory(category_all, rAdapter1, binding_UserMain.rviewContent1);
             }
         }
 
@@ -192,8 +192,8 @@ public class user_Event_Main extends AppCompatActivity {
 
     }
 
-    private void addItemInCategory() {
-        category_all = new ArrayList<>();
+    private void addItemInCategory(ArrayList arrayList, RecyclerView.Adapter adapter, RecyclerView recyclerView) {
+        arrayList = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
@@ -209,15 +209,15 @@ public class user_Event_Main extends AppCompatActivity {
                 String event_startday = item.getString(TAG_STARTDAY);
                 String event_endday = item.getString(TAG_ENDDAY);
 
-                category_all.add(new user_Event_Item(event_name, event_URI,
+                arrayList.add(new user_Event_Item(event_name, event_URI,
                         event_price, event_dis_price, event_startday, event_endday));
             }
 
-            rAdapter1 = new user_Event_Adapter(category_all, mContext);
-            binding_UserMain.rviewContent1.setAdapter(rAdapter1);
-            binding_UserMain.rviewContent1.setHasFixedSize(true);
+            adapter = new user_Event_Adapter(arrayList, mContext);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
 
-            rAdapter1.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
 
         } catch (JSONException e) {
             Log.d(TAG, "addItemInCategory Error : ", e);
