@@ -45,13 +45,15 @@ public class user_Event_Main extends AppCompatActivity {
     private static final String TAG_STARTDAY = "event_startday";
     private static final String TAG_ENDDAY = "event_endday";
 
-    UserEventMainBinding binding_UserMain;
     static RecyclerView mRecyclerView; // 어댑터에서 쓸 인스턴스
+
+    UserEventMainBinding binding_UserMain;
     Context mContext;
-    RecyclerView.Adapter rAdapter1;
-    ArrayList category_all;
     String mJsonString;
+    RecyclerView.Adapter rAdapter;
+    ArrayList category;
     getEventDB getEventDB;
+    String separator_category = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class user_Event_Main extends AppCompatActivity {
         mRecyclerView = binding_UserMain.rviewContent1;
 
         getEventDB = new getEventDB();
-        getEventDB.execute(source_URI + "2ventGetEventAll.php");
+        getEventDB.execute(source_URI+"2ventGetEventAll.php");
     }
 
     public void onClick_Accountinfo(View v) {
@@ -107,15 +109,20 @@ public class user_Event_Main extends AppCompatActivity {
             @Override
             public void onTabChanged(String tabId) {
                 if (tabId == "전체") {
-                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
+//                    getEventDB.cancel(true);
+//                    getEventDB.execute(source_URI+"2ventGetEventAll.php");
                 } else if (tabId == "문화") {
-                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
+//                    getEventDB.cancel(true);
+//                    getEventDB.execute(source_URI+"2ventGetEventCulture.php");
                 } else if (tabId == "외식") {
-                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
+//                    getEventDB.cancel(true);
+//                    getEventDB.execute(source_URI+"2ventGetEventMeal.php");
                 } else if (tabId == "뷰티") {
-                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
+//                    getEventDB.cancel(true);
+//                    getEventDB.execute(source_URI+"2ventGetEventBeauty.php");
                 } else if (tabId == "패션") {
-                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
+//                    getEventDB.cancel(true);
+//                    getEventDB.execute(source_URI+"2ventGetEventFashion.php");
                 }
             }
         });
@@ -131,21 +138,6 @@ public class user_Event_Main extends AppCompatActivity {
 
             progressDialog = ProgressDialog.show(user_Event_Main.this,
                     "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            progressDialog.dismiss();
-            Log.d(TAG, "response  - " + result);
-
-            if (result == null) {
-
-            } else {
-                mJsonString = result;
-                addItemInCategory(category_all, rAdapter1, binding_UserMain.rviewContent1);
-            }
         }
 
         @Override
@@ -187,6 +179,34 @@ public class user_Event_Main extends AppCompatActivity {
                 errorString = e.toString();
 
                 return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Log.d(TAG, "response  - " + result);
+
+            if (result == null) {
+
+            } else {
+                mJsonString = result;
+
+                if (separator_category == "0") {
+                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent1);
+                } else if (separator_category == "1") {
+                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent2);
+                } else if (separator_category == "2") {
+                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent3);
+                } else if (separator_category == "3") {
+                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent4);
+                } else if (separator_category == "4") {
+                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent5);
+                } else {
+                    Toast.makeText(user_Event_Main.this, "No Data", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
