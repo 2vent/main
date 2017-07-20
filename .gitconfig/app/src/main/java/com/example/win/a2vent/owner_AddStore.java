@@ -9,14 +9,18 @@ import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,7 +44,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -67,6 +70,8 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     ImageView v_com_iv;
     Button v_com_button;
     RadioGroup v_com_radio;
+    Button btn_search_addr;
+    TextView v_com_addr2;
 
 
     String com_name;
@@ -79,6 +84,11 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     String ID;
     String com_number;
     ArrayList<String> managerList = null;
+
+    //주소 검색
+    WebView webview;
+    private Handler handler;
+
 
     //사진 관련
     Button btn_gall;
@@ -99,6 +109,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
         v_com_name = (TextView) findViewById(R.id.com_form_name);
         v_com_addr = (TextView) findViewById(R.id.com_form_addr);
+        v_com_addr2 = (TextView) findViewById(R.id.com_form_addr2);
         v_com_radio_culture = (RadioButton) findViewById(R.id.com_form_radio_culture);
         v_com_radio_food = (RadioButton) findViewById(R.id.com_form_radio_food);
         v_com_radio_beauty = (RadioButton) findViewById(R.id.com_form_radio_beauty);
@@ -109,6 +120,9 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         v_com_radio = (RadioGroup) findViewById(R.id.com_form_radio);
         btn_gall = (Button) findViewById(R.id.com_btn_gall);
         btn_picture = (Button) findViewById(R.id.com_btn_picture);
+        btn_search_addr=(Button)findViewById(R.id.com_btn_search_addr);
+
+
 
 //        v_com_URI
         v_com_iv = (ImageView) findViewById(R.id.com_form_iv);
@@ -153,6 +167,19 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 takePhoto();
             }
         });
+
+        btn_search_addr.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                // WebView 초기화
+                init_webView();
+
+                // 핸들러를 통한 JavaScript 이벤트 반응
+                handler = new Handler();
+            }
+        } );
 
 
         managerList = new ArrayList<String>();
@@ -694,6 +721,37 @@ asdf();
             Log.e("흠",managerList.get(2));
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void init_webView() {
+        startActivity(new Intent());
+        // WebView 설정
+        webview = (WebView) findViewById(R.id.webView);
+        // JavaScript 허용
+        webview.getSettings().setJavaScriptEnabled(true);
+        // JavaScript의 window.open 허용
+        webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        // JavaScript이벤트에 대응할 함수를 정의 한 클래스를 붙여줌
+        // 두 번째 파라미터는 사용될 php에도 동일하게 사용해야함
+        webview.addJavascriptInterface(new AndroidBridge(), "TestApp");
+        // web client 를 chrome 으로 설정
+        webview.setWebChromeClient(new WebChromeClient());
+        // webview url load
+        webview.loadUrl("http://192.168.0.106/eventApp/YTest2.php");
+    }
+
+    private class AndroidBridge {
+        @JavascriptInterface
+        public void setAddress(final String arg1, final String arg2, final String arg3) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    v_com_addr.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
+                    // WebView를 초기화 하지않으면 재사용할 수 없음
+                    init_webView();
+                }
+            });
         }
     }
 
