@@ -187,7 +187,7 @@
                 android:layout_alignTop="@+id/textView10"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="" />
 
             <Button
                 android:id="@+id/com_button"

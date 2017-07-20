@@ -123,18 +123,15 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.com_form_radio_culture:
-                        com_category = "0";
-                        break;
-                    case R.id.com_form_radio_food:
                         com_category = "1";
                         break;
-                    case R.id.com_form_radio_beauty:
+                    case R.id.com_form_radio_food:
                         com_category = "2";
                         break;
-                    case R.id.com_form_radio_fashion:
+                    case R.id.com_form_radio_beauty:
                         com_category = "3";
                         break;
-                    case R.id.com_form_radio_travel:
+                    case R.id.com_form_radio_fashion:
                         com_category = "4";
                         break;
                 }
@@ -165,27 +162,31 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
 
 //        Log.e("시티",city.toString());
+        getManager getManager = new getManager();
+        getManager.execute();
+
+
+//        Thread workingTread = new Thread(){
+//            public void run(){
+//
+//
+//
+//                }
+//
+//        };
+//
+//        workingTread.start();
+//        try {
+//            workingTread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 
 
-        Thread workingTread = new Thread(){
-            public void run(){
+    }
 
-                    getManager getManager = new getManager();
-                    getManager.execute();
-
-
-                }
-
-        };
-
-        workingTread.start();
-        try {
-            workingTread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public void asdf(){
         city=new String[managerList.size()];
 
         for(int i = 0; i<city.length;i++){
@@ -208,9 +209,9 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
         v_com_manager.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                v_com_manager.setSelection(Integer.parseInt(managerList.get(position).toString()));
-                Log.e("매니저",v_com_manager.getSelectedItem().toString());
-                Toast.makeText(getApplicationContext(),Integer.toString(position),Toast.LENGTH_LONG).show();
+//                v_com_manager.setSelection(Integer.parseInt(managerList.get(position).toString()));
+//                Log.e("매니저",v_com_manager.getSelectedItem().toString());
+//                Toast.makeText(getApplicationContext(),Integer.toString(position),Toast.LENGTH_LONG).show();
 
 
             }
@@ -220,7 +221,6 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
     }
 
 
@@ -237,8 +237,8 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 //                com_URI
 //                com_ID
                     ID = "1";
-                    com_manager = "1";
-                    com_URI = "temp001";
+                    com_manager = v_com_manager.getSelectedItem().toString();
+                    com_URI = file_name;
 
                     Log.i("asyntask", "됨");
                     InsertData_com com_Task = new InsertData_com();
@@ -263,7 +263,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 //                com_URI
 //                com_ID
                 ID = "1";
-                com_manager = "2";
+//                com_manager = v_com_manager.getSelectedItem().toString();
                 com_URI = "temp001";
 
                 Log.i("asyntask", "됨");
@@ -659,7 +659,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             super.onPostExecute(s);
             Log.i("받은 json ", s);
             jsonParser(s);
-
+asdf();
 
 
 
