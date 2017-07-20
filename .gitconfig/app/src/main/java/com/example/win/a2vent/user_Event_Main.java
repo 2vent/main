@@ -107,15 +107,15 @@ public class user_Event_Main extends AppCompatActivity {
             @Override
             public void onTabChanged(String tabId) {
                 if (tabId == "전체") {
-                    Toast.makeText(user_Event_Main.this, "전체", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
                 } else if (tabId == "문화") {
-                    Toast.makeText(user_Event_Main.this, "문화", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
                 } else if (tabId == "외식") {
-                    Toast.makeText(user_Event_Main.this, "외식", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
                 } else if (tabId == "뷰티") {
-                    Toast.makeText(user_Event_Main.this, "뷰티", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
                 } else if (tabId == "패션") {
-                    Toast.makeText(user_Event_Main.this, "패션", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(user_Event_Main.this, tabId, Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -83,7 +83,7 @@ public class activity_User_Join extends AppCompatActivity {
             phone = binding_userJoin.eTextJoinPhone.getText().toString();
             accountnumber = binding_userJoin.eTextJoinAccountnumber.getText().toString();
         } catch (NullPointerException e) {
-            Log.e("Join Error :", e.getMessage());
+            Log.e("Join Error : ", e.getMessage());
         }
 
         joinDB = new JoinDB();
@@ -177,6 +177,8 @@ public class activity_User_Join extends AppCompatActivity {
                 startActivity(intent_Joindone);
             } else if (result.equals("아이디가 존재합니다")) {
                 Toast.makeText(activity_User_Join.this, "아이디가 존재합니다", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(activity_User_Join.this, "Register Error", Toast.LENGTH_SHORT).show();
             }
             Log.d("DB", "POST response  - " + result);
         }
