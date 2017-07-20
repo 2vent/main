@@ -26,6 +26,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static com.example.win.a2vent.user_Event_Adapter.source_URI;
+
 /**
  * Created by EUNJAESHIN on 2017-07-10.
  * 사용자 메인 화면
@@ -58,8 +60,10 @@ public class user_Event_Main extends AppCompatActivity {
         mContext = getApplicationContext();
         mRecyclerView = binding_UserMain.rviewContent1;
 
+        Log.i("앙", activity_User_Login.savedID);
+
         getEventDB = new getEventDB();
-        getEventDB.execute("http://192.168.0.106/EventApp/2ventGetEvent.php");
+        getEventDB.execute(source_URI + "2ventGetEventAll.php");
     }
 
     public void onClick_Accountinfo(View v) {
@@ -74,30 +78,47 @@ public class user_Event_Main extends AppCompatActivity {
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost_usermain);
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab Spec 1");
+        final TabHost.TabSpec tabSpec1 = tabHost.newTabSpec("Tab Spec 1");
         tabSpec1.setContent(R.id.content1);
         tabSpec1.setIndicator("전체");
         tabHost.addTab(tabSpec1);
 
-        TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab Spec 2");
+        final TabHost.TabSpec tabSpec2 = tabHost.newTabSpec("Tab Spec 2");
         tabSpec2.setContent(R.id.content2);
-        tabSpec2.setIndicator("패션");
+        tabSpec2.setIndicator("문화");
         tabHost.addTab(tabSpec2);
 
-        TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab Spec 3");
+        final TabHost.TabSpec tabSpec3 = tabHost.newTabSpec("Tab Spec 3");
         tabSpec3.setContent(R.id.content3);
         tabSpec3.setIndicator("외식");
         tabHost.addTab(tabSpec3);
 
-        TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("Tab Spec 4");
+        final TabHost.TabSpec tabSpec4 = tabHost.newTabSpec("Tab Spec 4");
         tabSpec4.setContent(R.id.content4);
         tabSpec4.setIndicator("뷰티");
         tabHost.addTab(tabSpec4);
 
-        TabHost.TabSpec tabSpec5 = tabHost.newTabSpec("Tab Spec 5");
+        final TabHost.TabSpec tabSpec5 = tabHost.newTabSpec("Tab Spec 5");
         tabSpec5.setContent(R.id.content5);
-        tabSpec5.setIndicator("문화");
+        tabSpec5.setIndicator("패션");
         tabHost.addTab(tabSpec5);
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if (tabSpec1.equals(tabId)) {
+
+                } else if (tabSpec2.equals(tabId)) {
+
+                } else if (tabSpec3.equals(tabId)) {
+
+                } else if (tabSpec4.equals(tabId)) {
+
+                } else if (tabSpec5.equals(tabId)) {
+
+                }
+            }
+        });
     }
 
     private class getEventDB extends AsyncTask<String, Void, String> { // 이벤트 받아오기
@@ -179,7 +200,6 @@ public class user_Event_Main extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String event_name = item.getString(TAG_NAME);
@@ -188,7 +208,6 @@ public class user_Event_Main extends AppCompatActivity {
                 String event_dis_price = item.getString(TAG_DISPRICE);
                 String event_startday = item.getString(TAG_STARTDAY);
                 String event_endday = item.getString(TAG_ENDDAY);
-
 
                 category_all.add(new user_Event_Item(event_name, event_URI,
                         event_price, event_dis_price, event_startday, event_endday));
