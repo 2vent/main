@@ -191,29 +191,6 @@ public class user_Event_Main extends AppCompatActivity {
             } else {
                 mJsonString = result;
                 addItemInCategory();
-                /**
-                 * separator_category 라는 변수 값에 따라 카테고리에 맞는 리사이클러뷰 마다
-                 * DB값을 불러오려 했으나 AsyncTask를 반복 실행하게 되면 앱이 죽음
-
-                 if (separator_category == "0") {
-                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent1);
-
-                 } else if (separator_category == "1") {
-                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent2);
-
-                 } else if (separator_category == "2") {
-                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent3);
-
-                 } else if (separator_category == "3") {
-                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent4);
-
-                 } else if (separator_category == "4") {
-                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent5);
-
-                 } else {
-                 Toast.makeText(user_Event_Main.this, "No Data", Toast.LENGTH_SHORT).show();
-                 }
-                 */
             }
         }
 
@@ -241,25 +218,20 @@ public class user_Event_Main extends AppCompatActivity {
                 String event_startday = item.getString(TAG_STARTDAY);
                 String event_endday = item.getString(TAG_ENDDAY);
 
+                category_all.add(new user_Event_Item(event_name, event_URI,
+                        event_price, event_dis_price, event_startday, event_endday));
+
                 if (event_type == 0) {
                     category_culture.add(new user_Event_Item(event_name, event_URI,
-                            event_price, event_dis_price, event_startday, event_endday));
-                    category_all.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 1) {
                     category_meal.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
-                    category_all.add(new user_Event_Item(event_name, event_URI,
-                            event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 2) {
                     category_beauty.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
-                    category_all.add(new user_Event_Item(event_name, event_URI,
-                            event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 3) {
                     category_fashion.add(new user_Event_Item(event_name, event_URI,
-                            event_price, event_dis_price, event_startday, event_endday));
-                    category_all.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 }
             }
