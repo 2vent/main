@@ -39,6 +39,7 @@ public class user_Event_Main extends AppCompatActivity {
     private static String TAG = "JSON으로 데이터 가져오기";
     private static final String TAG_JSON = "Event";
     private static final String TAG_NAME = "event_name";
+    private static final String TAG_TYPE = "event_type";
     private static final String TAG_URI = "event_URI";
     private static final String TAG_PRICE = "event_price";
     private static final String TAG_DISPRICE = "event_dis_price";
@@ -50,10 +51,10 @@ public class user_Event_Main extends AppCompatActivity {
     UserEventMainBinding binding_UserMain;
     Context mContext;
     String mJsonString;
-    RecyclerView.Adapter rAdapter;
-    ArrayList category;
+    RecyclerView.Adapter rAdapter1, rAdapter2, rAdapter3, rAdapter4, rAdapter5;
+    ArrayList category_all, category_culture, category_meal, category_beauty, category_fashion;
     getEventDB getEventDB;
-    String separator_category = "0";
+    int event_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class user_Event_Main extends AppCompatActivity {
         mRecyclerView = binding_UserMain.rviewContent1;
 
         getEventDB = new getEventDB();
-        getEventDB.execute(source_URI+"2ventGetEventAll.php");
+        getEventDB.execute(source_URI + "2ventGetEventAll.php");
     }
 
     public void onClick_Accountinfo(View v) {
@@ -105,24 +106,20 @@ public class user_Event_Main extends AppCompatActivity {
         tabSpec5.setIndicator("패션");
         tabHost.addTab(tabSpec5);
 
+        // 탭 이동시 리스너
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
                 if (tabId == "전체") {
-//                    getEventDB.cancel(true);
-//                    getEventDB.execute(source_URI+"2ventGetEventAll.php");
+                    rAdapter1.notifyDataSetChanged();
                 } else if (tabId == "문화") {
-//                    getEventDB.cancel(true);
-//                    getEventDB.execute(source_URI+"2ventGetEventCulture.php");
+                    rAdapter2.notifyDataSetChanged();
                 } else if (tabId == "외식") {
-//                    getEventDB.cancel(true);
-//                    getEventDB.execute(source_URI+"2ventGetEventMeal.php");
+                    rAdapter3.notifyDataSetChanged();
                 } else if (tabId == "뷰티") {
-//                    getEventDB.cancel(true);
-//                    getEventDB.execute(source_URI+"2ventGetEventBeauty.php");
+                    rAdapter4.notifyDataSetChanged();
                 } else if (tabId == "패션") {
-//                    getEventDB.cancel(true);
-//                    getEventDB.execute(source_URI+"2ventGetEventFashion.php");
+                    rAdapter5.notifyDataSetChanged();
                 }
             }
         });
@@ -193,27 +190,41 @@ public class user_Event_Main extends AppCompatActivity {
 
             } else {
                 mJsonString = result;
+                addItemInCategory();
+                /**
+                 * separator_category 라는 변수 값에 따라 카테고리에 맞는 리사이클러뷰 마다
+                 * DB값을 불러오려 했으나 AsyncTask를 반복 실행하게 되면 앱이 죽음
 
-                if (separator_category == "0") {
-                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent1);
-                } else if (separator_category == "1") {
-                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent2);
-                } else if (separator_category == "2") {
-                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent3);
-                } else if (separator_category == "3") {
-                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent4);
-                } else if (separator_category == "4") {
-                    addItemInCategory(category, rAdapter, binding_UserMain.rviewContent5);
-                } else {
-                    Toast.makeText(user_Event_Main.this, "No Data", Toast.LENGTH_SHORT).show();
-                }
+                 if (separator_category == "0") {
+                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent1);
+
+                 } else if (separator_category == "1") {
+                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent2);
+
+                 } else if (separator_category == "2") {
+                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent3);
+
+                 } else if (separator_category == "3") {
+                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent4);
+
+                 } else if (separator_category == "4") {
+                 addItemInCategory(category, rAdapter, binding_UserMain.rviewContent5);
+
+                 } else {
+                 Toast.makeText(user_Event_Main.this, "No Data", Toast.LENGTH_SHORT).show();
+                 }
+                 */
             }
         }
 
     }
 
-    private void addItemInCategory(ArrayList arrayList, RecyclerView.Adapter adapter, RecyclerView recyclerView) {
-        arrayList = new ArrayList<>();
+    private void addItemInCategory() {
+        category_all = new ArrayList<>();
+        category_culture = new ArrayList<>();
+        category_meal = new ArrayList<>();
+        category_beauty = new ArrayList<>();
+        category_fashion = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
@@ -223,21 +234,48 @@ public class user_Event_Main extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String event_name = item.getString(TAG_NAME);
+                event_type = item.getInt(TAG_TYPE);
                 String event_URI = item.getString(TAG_URI);
                 String event_price = item.getString(TAG_PRICE);
                 String event_dis_price = item.getString(TAG_DISPRICE);
                 String event_startday = item.getString(TAG_STARTDAY);
                 String event_endday = item.getString(TAG_ENDDAY);
 
-                arrayList.add(new user_Event_Item(event_name, event_URI,
-                        event_price, event_dis_price, event_startday, event_endday));
+                if (event_type == 0) {
+                    category_culture.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                    category_all.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                } else if (event_type == 1) {
+                    category_meal.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                    category_all.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                } else if (event_type == 2) {
+                    category_beauty.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                    category_all.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                } else if (event_type == 3) {
+                    category_fashion.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                    category_all.add(new user_Event_Item(event_name, event_URI,
+                            event_price, event_dis_price, event_startday, event_endday));
+                }
             }
 
-            adapter = new user_Event_Adapter(arrayList, mContext);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setHasFixedSize(true);
+            rAdapter1 = new user_Event_Adapter(category_all, mContext);
+            binding_UserMain.rviewContent1.setAdapter(rAdapter1);
+            rAdapter2 = new user_Event_Adapter(category_culture, mContext);
+            binding_UserMain.rviewContent2.setAdapter(rAdapter2);
+            rAdapter3 = new user_Event_Adapter(category_meal, mContext);
+            binding_UserMain.rviewContent3.setAdapter(rAdapter3);
+            rAdapter4 = new user_Event_Adapter(category_beauty, mContext);
+            binding_UserMain.rviewContent4.setAdapter(rAdapter4);
+            rAdapter5 = new user_Event_Adapter(category_fashion, mContext);
+            binding_UserMain.rviewContent5.setAdapter(rAdapter5);
 
-            adapter.notifyDataSetChanged();
+            rAdapter1.notifyDataSetChanged();
 
         } catch (JSONException e) {
             Log.d(TAG, "addItemInCategory Error : ", e);
