@@ -3,6 +3,7 @@ package com.example.win.a2vent;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,12 +23,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static com.example.win.a2vent.activity_User_Login.savedID;
 import static com.example.win.a2vent.user_Event_Adapter.source_URI;
 
 /**
@@ -79,7 +78,8 @@ public class user_Event_Main extends AppCompatActivity {
     }
 
     public void onClick_goMap(View v) {
-        Toast.makeText(user_Event_Main.this, "이거 누르면 지도뷰로", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,user_map.class);
+        startActivity(intent);
     }
 
     public void set_TabHost(Activity a) {
