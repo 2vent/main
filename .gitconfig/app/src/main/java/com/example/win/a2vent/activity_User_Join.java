@@ -23,6 +23,7 @@ import java.net.URL;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
+ * 회원가입 부분
  */
 
 public class activity_User_Join extends AppCompatActivity {
@@ -72,7 +73,7 @@ public class activity_User_Join extends AppCompatActivity {
 
     }
 
-    //    회원가입 버튼
+
     public void onClick_joinOK(View view) {
         try {
             id = binding_userJoin.eTextJoinId.getText().toString();
@@ -88,9 +89,9 @@ public class activity_User_Join extends AppCompatActivity {
 
         joinDB = new JoinDB();
         joinDB.execute(id, pw, name, addr, birth, sex, phone, user_type, accountnumber);
-    }
+    } // 회원가입 버튼
 
-    class JoinDB extends AsyncTask<String, Void, String> { // 회원가입
+    class JoinDB extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
         @Override
@@ -183,7 +184,7 @@ public class activity_User_Join extends AppCompatActivity {
             Log.d("DB", "POST response  - " + result);
         }
 
-    }
+    } // 회원 DB입력 AsynTask
 
     @Override
     protected void onDestroy() {

@@ -20,6 +20,11 @@ import static com.example.win.a2vent.user_Event_Main.mRecyclerView;
 /**
  * Created by EUNJAESHIN on 2017-07-10.
  * 사용자 이벤트 받아오는 어댑터
+ *
+ * 이미지 로드 라이브러리 Picasso
+ * http://dwfox.tistory.com/33
+ * AQuery (테스트만)
+ * http://egloos.zum.com/mightyfine/v/307168
  */
 
 public class user_Event_Adapter extends RecyclerView.Adapter<user_Event_Holder> {

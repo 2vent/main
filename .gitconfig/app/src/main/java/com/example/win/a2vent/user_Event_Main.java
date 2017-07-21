@@ -33,6 +33,11 @@ import static com.example.win.a2vent.user_Event_Adapter.source_URI;
 /**
  * Created by EUNJAESHIN on 2017-07-10.
  * 사용자 메인 화면
+ *
+ * Android & PHP & MySQL 예제
+ * http://webnautes.tistory.com/category/Android/DATABASE
+ * 데이터 바인딩 라이브러리
+ * https://developer.android.com/topic/libraries/data-binding/index.html?hl=ko
  */
 
 public class user_Event_Main extends AppCompatActivity {
@@ -52,7 +57,7 @@ public class user_Event_Main extends AppCompatActivity {
     Context mContext;
     String mJsonString;
     RecyclerView.Adapter rAdapter1, rAdapter2, rAdapter3, rAdapter4, rAdapter5;
-    ArrayList category_all, category_culture, category_meal, category_beauty, category_fashion;
+    ArrayList category_All, category_Culture, category_Meal, category_Beauty, category_Fashion;
     getEventDB getEventDB;
     int event_type;
 
@@ -66,7 +71,7 @@ public class user_Event_Main extends AppCompatActivity {
         mRecyclerView = binding_UserMain.rviewContent1;
 
         getEventDB = new getEventDB();
-        getEventDB.execute(source_URI + "2ventGetEventAll.php");
+        getEventDB.execute(source_URI + "2ventGetEventAll.php"); // AsyncTask 실행
     }
 
     public void onClick_Accountinfo(View v) {
@@ -123,9 +128,9 @@ public class user_Event_Main extends AppCompatActivity {
                 }
             }
         });
-    }
+    } // TabWidget 설정
 
-    private class getEventDB extends AsyncTask<String, Void, String> { // 이벤트 받아오기
+    private class getEventDB extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
 
@@ -194,14 +199,14 @@ public class user_Event_Main extends AppCompatActivity {
             }
         }
 
-    }
+    } // EventDB 받는 AsyncTask
 
     private void addItemInCategory() {
-        category_all = new ArrayList<>();
-        category_culture = new ArrayList<>();
-        category_meal = new ArrayList<>();
-        category_beauty = new ArrayList<>();
-        category_fashion = new ArrayList<>();
+        category_All = new ArrayList<>();
+        category_Culture = new ArrayList<>();
+        category_Meal = new ArrayList<>();
+        category_Beauty = new ArrayList<>();
+        category_Fashion = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
@@ -218,33 +223,36 @@ public class user_Event_Main extends AppCompatActivity {
                 String event_startday = item.getString(TAG_STARTDAY);
                 String event_endday = item.getString(TAG_ENDDAY);
 
-                category_all.add(new user_Event_Item(event_name, event_URI,
+                // 전체 항목에는 모두 저장
+                category_All.add(new user_Event_Item(event_name, event_URI,
                         event_price, event_dis_price, event_startday, event_endday));
 
+                // 카테고리 분류해서 각각 저장
                 if (event_type == 0) {
-                    category_culture.add(new user_Event_Item(event_name, event_URI,
+                    category_Culture.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 1) {
-                    category_meal.add(new user_Event_Item(event_name, event_URI,
+                    category_Meal.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 2) {
-                    category_beauty.add(new user_Event_Item(event_name, event_URI,
+                    category_Beauty.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 } else if (event_type == 3) {
-                    category_fashion.add(new user_Event_Item(event_name, event_URI,
+                    category_Fashion.add(new user_Event_Item(event_name, event_URI,
                             event_price, event_dis_price, event_startday, event_endday));
                 }
             }
 
-            rAdapter1 = new user_Event_Adapter(category_all, mContext);
+            rAdapter1 = new user_Event_Adapter(category_All, mContext);
+            rAdapter2 = new user_Event_Adapter(category_Culture, mContext);
+            rAdapter3 = new user_Event_Adapter(category_Meal, mContext);
+            rAdapter4 = new user_Event_Adapter(category_Beauty, mContext);
+            rAdapter5 = new user_Event_Adapter(category_Fashion, mContext);
+
             binding_UserMain.rviewContent1.setAdapter(rAdapter1);
-            rAdapter2 = new user_Event_Adapter(category_culture, mContext);
             binding_UserMain.rviewContent2.setAdapter(rAdapter2);
-            rAdapter3 = new user_Event_Adapter(category_meal, mContext);
             binding_UserMain.rviewContent3.setAdapter(rAdapter3);
-            rAdapter4 = new user_Event_Adapter(category_beauty, mContext);
             binding_UserMain.rviewContent4.setAdapter(rAdapter4);
-            rAdapter5 = new user_Event_Adapter(category_fashion, mContext);
             binding_UserMain.rviewContent5.setAdapter(rAdapter5);
 
             rAdapter1.notifyDataSetChanged();
@@ -252,7 +260,7 @@ public class user_Event_Main extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d(TAG, "addItemInCategory Error : ", e);
         }
-    }
+    } // JSON 데이터를 카테고리에 저장
 
     @Override
     protected void onDestroy() {

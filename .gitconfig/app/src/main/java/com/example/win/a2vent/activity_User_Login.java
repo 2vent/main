@@ -22,7 +22,7 @@ import java.net.URL;
 
 /**
  * Created by EUNJAESHIN on 2017-07-10.
- * 로그인 화면 ( 첫화면 )
+ * 로그인 부분 (첫 액티비티)
  */
 
 public class activity_User_Login extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class activity_User_Login extends AppCompatActivity {
 
     }
 
-    public void onClick_login(View view) { // 로그인 버튼
+    public void onClick_login(View view) {
         try {
             sId = binding_userLogin.eTextLoginId.getText().toString();
             sPw = binding_userLogin.eTextLoginPw.getText().toString();
@@ -52,12 +52,12 @@ public class activity_User_Login extends AppCompatActivity {
         loginDB.execute(sId, sPw);
     }
 
-    public void onClick_join(View view) { // 회원가입 액티비티로
+    public void onClick_join(View view) {
         Intent intent_join = new Intent(activity_User_Login.this, activity_User_Join.class);
         startActivity(intent_join);
     }
 
-    public void onBackPressed() { // 백키 2번해야 종료
+    public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
             Toast.makeText(activity_User_Login.this,
@@ -69,9 +69,9 @@ public class activity_User_Login extends AppCompatActivity {
                     "'뒤로' 버튼을 한번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).cancel();
             finish();
         }
-    }
+    } // 백키 2번해야 종료
 
-    class loginDB extends AsyncTask<String, Void, String> { // 로그인
+    class loginDB extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
         @Override
@@ -162,7 +162,7 @@ public class activity_User_Login extends AppCompatActivity {
             Log.d("DB", "POST response - " + result);
         }
 
-    }
+    } // 회원 DB값 비교 AsyncTask
 
     @Override
     protected void onDestroy() {
