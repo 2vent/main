@@ -18,8 +18,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,11 +72,11 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     TextView v_com_addr2;
 
 
-    String com_name;
-    String com_addr;
+    String com_name=null;
+    String com_addr=null;
     String com_category;
-    String com_manager;
-    String com_URI;
+    String com_manager=null;
+    String com_URI=null;
     //유저목록 불러와야됨
     //이미지 삽입 해야됨
     String ID;
@@ -264,12 +262,19 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 case R.id.com_button:
                     com_number = v_com_number.getText().toString();
                     com_name = v_com_name.getText().toString();
-                    com_addr = v_com_addr.getText().toString();
-//                com_category
-//                com_manager
-//                com_URI
-//                com_ID
-                    ID = "1";
+                    if(v_com_addr2==null){
+                        com_addr=null;
+                        com_addr = v_com_addr.getText().toString();
+                    }else{
+                        com_addr=null;
+                        com_addr = v_com_addr.getText().toString() + v_com_addr2.getText().toString();
+                    }
+
+                    Log.e("맞나?",com_addr);
+
+
+
+                    ID="1";
                     com_manager = v_com_manager.getSelectedItem().toString();
                     com_URI = file_name;
 
@@ -286,23 +291,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.com_button:
-                com_number = v_com_number.getText().toString();
-                com_name = v_com_name.getText().toString();
-                com_addr = v_com_addr.getText().toString()+v_com_addr2.getText().toString();
-                ID = "1";
-//                com_manager = v_com_manager.getSelectedItem().toString();
 
-
-                Log.i("asyntask", "됨");
-                InsertData_com com_Task = new InsertData_com();
-                Log.i("asyntask", "됨");
-                com_Task.execute(com_number, com_name, com_addr, com_category, com_manager, com_URI, ID, file_dir + "" + file_name, file_dir, file_name);
-
-                break;
-
-        }
 
     }
 
@@ -511,7 +500,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
-        String imageFileName = "IP" + timeStamp + "_";
+        String imageFileName = "2vent" + timeStamp + "_";
         File storageDir = new File(Environment.getExternalStorageDirectory() + "/test/"); //test라는 경로에 이미지를 저장하기 위함
         if (!storageDir.exists()) {
             storageDir.mkdirs();
@@ -577,6 +566,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             v_com_addr.setText(data.getStringExtra("addr"));
             String test=data.getStringExtra("addr");
             Log.e("맞나?",test);
+
 
         }
 
@@ -733,36 +723,7 @@ asdf();
         }
     }
 
-    public void init_webView() {
-        startActivity(new Intent());
-        // WebView 설정
-        webview = (WebView) findViewById(R.id.webView);
-        // JavaScript 허용
-        webview.getSettings().setJavaScriptEnabled(true);
-        // JavaScript의 window.open 허용
-        webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        // JavaScript이벤트에 대응할 함수를 정의 한 클래스를 붙여줌
-        // 두 번째 파라미터는 사용될 php에도 동일하게 사용해야함
-        webview.addJavascriptInterface(new AndroidBridge(), "TestApp");
-        // web client 를 chrome 으로 설정
-        webview.setWebChromeClient(new WebChromeClient());
-        // webview url load
-        webview.loadUrl("http://192.168.0.106/eventApp/YTest2.php");
-    }
 
-    private class AndroidBridge {
-        @JavascriptInterface
-        public void setAddress(final String arg1, final String arg2, final String arg3) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    v_com_addr.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
-                    // WebView를 초기화 하지않으면 재사용할 수 없음
-                    init_webView();
-                }
-            });
-        }
-    }
 
 
 }
