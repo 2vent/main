@@ -100,6 +100,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
     private static final int PICK_FROM_CAMERA = 1; //카메라 촬영으로 사진 가져오기
     private static final int PICK_FROM_ALBUM = 2; //앨범에서 사진 가져오기
     private static final int CROP_FROM_CAMERA = 3; //가져온 사진을 자르기 위한 변수
+    private static final int SERCH_ADDR = 4; //가져온 사진을 자르기 위한 변수
 
 
     @Override
@@ -173,11 +174,16 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
 
-                // WebView 초기화
-                init_webView();
+                Intent i = new Intent(owner_AddStore.this,owner_AddStore_webView.class);
 
-                // 핸들러를 통한 JavaScript 이벤트 반응
-                handler = new Handler();
+                startActivityForResult(i,SERCH_ADDR);
+
+
+//                // WebView 초기화
+//                init_webView();
+//
+//                // 핸들러를 통한 JavaScript 이벤트 반응
+//                handler = new Handler();
             }
         } );
 
@@ -284,14 +290,10 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
             case R.id.com_button:
                 com_number = v_com_number.getText().toString();
                 com_name = v_com_name.getText().toString();
-                com_addr = v_com_addr.getText().toString();
-//                com_category
-//                com_manager
-//                com_URI
-//                com_ID
+                com_addr = v_com_addr.getText().toString()+v_com_addr2.getText().toString();
                 ID = "1";
 //                com_manager = v_com_manager.getSelectedItem().toString();
-                com_URI = "temp001";
+
 
                 Log.i("asyntask", "됨");
                 InsertData_com com_Task = new InsertData_com();
@@ -472,6 +474,7 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
 
                 return new String("Error: " + e.getMessage());
             }
+
         }
 
         @Override
@@ -570,7 +573,13 @@ public class owner_AddStore extends AppCompatActivity implements View.OnClickLis
                 Log.e("ERROR", e.getMessage().toString());
 
             }
+        } else if (requestCode== SERCH_ADDR){
+            v_com_addr.setText(data.getStringExtra("addr"));
+            String test=data.getStringExtra("addr");
+            Log.e("맞나?",test);
+
         }
+
     }
 
     //Android N crop image (이 부분에서 몇일동안 정신 못차렸습니다 ㅜ)
